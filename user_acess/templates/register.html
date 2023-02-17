@@ -1,0 +1,92 @@
+{{define "Register"}}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Restaurante</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/templates/plugins/images/favicon.png">
+    <!-- Custom CSS -->
+    <link href="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/dist/css/style.css"
+        rel="stylesheet">
+</head>
+<body style="background-color:#313131;">
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+      
+                    <h3 class="mb-5">Cadastro</h3>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        <div>
+                            <label class="img-circle" for="picture">
+                            <input type="file" name="img" accept="image/*" id="picture"> </input>
+                            <img id="ItemPreview" src="" alt="user-img" width="36">
+                            </label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input placeholder="Nome Completo" type="text" name="name" class="form-control form-control-lg" value="{{.Name}}" />
+                            <label style="color:#7460ee;" name="nameerr" class="form-label">{{.Errs.NameErr}}</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input placeholder="E-mail" type="email" name="email" class="form-control form-control-lg" value="{{.Email}}"/>
+                            <label style="color:#7460ee;" name="emailerr" class="form-label">{{.Errs.EmailErr}}</label>
+                        </div>
+
+                        <div>
+                            <input placeholder="Senha" type="password" name="passwd" class="form-control form-control-lg" value="{{.Passwd}}" />
+                            <label style="color:#7460ee;" name="passwderr" class="form-label">{{.Errs.PasswdErr}}</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input placeholder="Confirmar Senha" type="password" name="confirmation" class="form-control form-control-lg" value="{{.Confirm}}" />
+                            <label style="color:#7460ee;" name="confirmpasswderr"class="form-label">{{.Errs.ConfirmErr}}</label>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" value="salvar">Enviar</button>            
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+</body>
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<style>
+    #picture {
+        display: none;
+    }
+
+</style>
+<script
+    src="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/assets/plugins/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img}};</script>
+<!-- <script>
+    function reqListener () {
+        console.log(this.responseText);
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+
+    oReq.send()
+</script> -->
+</html>
+{{end}}
