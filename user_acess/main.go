@@ -29,7 +29,7 @@ func main() {
 
 	e.Any("/register", controllers.Register, middleware.Logger())
   e.Any("/login", controllers.Login, middleware.Logger())
-  e.Any("/home", controllers.Home, middleware.Logger())
+  e.File("/css/newstyle.css", "templates/css/newstyle.css", middleware.Logger())
 
 	e.Server.Addr = "localhost:8080"
 	e.Server.ListenAndServe()

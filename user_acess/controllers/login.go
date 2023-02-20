@@ -48,5 +48,5 @@ func Login(c echo.Context) error {
     return nil
   }
 
-  return c.Redirect(http.StatusPermanentRedirect, "http://localhost:8080/home")
+  return c.Redirect(http.StatusPermanentRedirect, "http://localhost:8081/home")
 }

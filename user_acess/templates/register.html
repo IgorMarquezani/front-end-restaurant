@@ -17,8 +17,11 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/templates/plugins/images/favicon.png">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="/templates/css/newstyle.css">
+
     <link href="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/dist/css/style.css"
         rel="stylesheet">
+
 </head>
 <body style="background-color:#313131;">
     <section class="vh-100">
@@ -31,12 +34,11 @@
                     <h3 class="mb-5">Cadastro</h3>
 
                     <form method="POST" enctype="multipart/form-data">
-                        <div>
-                            <label class="img-circle" for="picture">
-                            <input type="file" name="img" accept="image/*" id="picture"> </input>
-                            <img id="ItemPreview" src="" alt="user-img" width="36">
-                            </label>
-                        </div>
+									      <div class="circle-container">
+									        <img id="preview" src="#" alt="Image Preview" style="display: none;">
+									        <a id="circle-preview" href="#" src="" onclick="document.getElementById('image').click(); return false;"></a>
+									      </div>
+									      <input type="file" name="img" id="image" onchange="previewImage(event)" style="display: none;">
                         <div class="form-outline mb-4">
                             <input placeholder="Nome Completo" type="text" name="name" class="form-control form-control-lg" value="{{.Name}}" />
                             <label style="color:#7460ee;" name="nameerr" class="form-label">{{.Errs.NameErr}}</label>
@@ -77,7 +79,26 @@
     src="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/assets/plugins/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script>document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img}};</script>
+
+<!-- <script>document.getElementById("preview").src = "data:image/png;base64," + {{.Img}};</script> -->
+
+<script>
+  const image = document.getElementById("preview").src = "data:image/png;base64, " + {{.Img}};
+
+  document.querySelector('.circle-container a').style.backgroundImage = `url("${image}")`;
+
+      function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+          const preview = document.getElementById('preview');
+          preview.src = reader.result;
+          const button = document.querySelector('.circle-container a');
+          button.style.backgroundImage = `url(${reader.result})`;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 <!-- <script>
     function reqListener () {
         console.log(this.responseText);
