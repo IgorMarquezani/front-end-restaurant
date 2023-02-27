@@ -8,10 +8,25 @@
 
         td {
           padding-right: 10px;
-        }
+        };
+        .btn2 {
+  all: unset;
+  cursor: pointer;
+  color: aqua;
+}
+
+.btn2:focus {
+  outline: orange 5px auto;
+}
+.service h3{
+color: aqua;
+}
         </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
@@ -89,34 +104,35 @@
                 <div class="row justify-content-left">
                     <div class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
-                            <a href="">
-                            <h3 class="box-title">Comanda Teste</h3>
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <div>
-                                        <i class="fas fa-3x fa-users" aria-hidden="true"></i>
-                                    </div>
-                                </li>
-                                <li class="ms-auto"><span class="counter text-dark">R$ 0,00</span>
-                                </li>
-                            </ul>
-                            </a>
+                                    <button class="btn">
+                                        <h3 class="box-title">Comanda Teste</h3>
+                                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                            <li>
+                                                <div>
+                                                    <i class="fas fa-3x fa-users" aria-hidden="true"></i>
+                                                </div>
+                                            </li>
+                                            <li class="ms-auto"><span class="counter text-dark">R$ 0,00</span>
+                                            </li>
+                                        </ul>
+                                </button>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
-                            <a href="">
-                                <h3 class="box-title">Adicionar Comanda</h3>
-                                <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                    <li>
-                                        <div>
-                                            <i class="fas fa-3x fa-plus" aria-hidden="true"></i>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </a>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#signup-modal">
+                                    <h3 class="box-title">Adicionar Comanda</h3>
+                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                        <li>
+                                            <div>
+                                                <i class="fas fa-3x fa-plus" aria-hidden="true"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                            </div>
+                        </button>
                         </div>
-                    </div>
                 </div>
                 <div class="d-md-flex">
                     <ul class="list-inline d-flex ms-auto">
@@ -148,6 +164,43 @@
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
+        <div id="signup-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="ps-3 pe-3 text-start" action="#">
+                        <div class="mb-3">
+                            <label for="username">Código Mesa: </label>
+                            <input class="form-control" type="text" id="username"
+                                required="" placeholder="Mesa 1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailaddress">Numero Comanda</label>
+                            <input class="form-control" type="text" id="emailaddress"
+                                required="" placeholder="Comanda 1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password">Responsavel: </label>
+                            <input class="form-control" type="text" required=""
+                                id="password" placeholder="John">
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-primary" type="submit">Cadastrar Mesa</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
