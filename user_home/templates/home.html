@@ -63,7 +63,7 @@ color: aqua;
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         {{template "_header" .}}
         {{template "_aside" .}}
-        <!-- ============================================================== -->
+        <!-- ============================================================== --> 
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
@@ -104,7 +104,7 @@ color: aqua;
                 <div class="row justify-content-left">
                     <div class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
-                                    <button class="btn">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#al-info-alert">
                                         <h3 class="box-title">Comanda Teste</h3>
                                         <ul class="list-inline two-part d-flex align-items-center mb-0">
                                             <li>
@@ -120,7 +120,7 @@ color: aqua;
                     </div>
                     <div class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#signup-modal">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#signup-modal1">
                                     <h3 class="box-title">Adicionar Comanda</h3>
                                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                                         <li>
@@ -164,7 +164,7 @@ color: aqua;
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
-        <div id="signup-modal" class="modal fade" tabindex="-1" role="dialog"
+        <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -202,6 +202,33 @@ color: aqua;
     </div>
     <!-- /.modal -->
     </div>
+    <!-- Vertically centered modal -->
+<div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-light-info">
+            <div class="modal-header modal-colored-header bg-primary text-white">
+                <h4 class="modal-title" id="primary-header-modalLabel">Informações da X mesa
+                </h4>
+                </div>
+            <div class="modal-body p-4">
+                    <i data-feather="info" class="fill-white feather-lg"></i>
+                    <div class="mb-3">
+                        <label for="mesa">Código Mesa: </label>
+                        <label for="mesacodigo">Teste</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="produtos">Produtos: </label>
+                        <label for="produtoslista">Carne,Sla </label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sla">Responsavel: </label>
+                        <label for="slas">Xisde </label>
+                    </div>
+                    <button type="button" class="btn btn-light my-2"
+                        data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
