@@ -97,11 +97,10 @@ func Register(c echo.Context) error {
 	if err := models.NewUserRequest(user); err != nil {
 		log.Println("\033[31m", err, "\033[0m")
 	  c.Render(http.StatusBadRequest, "Register", rf)
+    return nil
 	}
 
-  c.Redirect(http.StatusCreated, "http://localhost:8080/login")
-
-	return nil
+  return c.Redirect(http.StatusMovedPermanently, "http://localhost:8080/login")
 }
 
 func UserFromRegisterForm(rf registerForm) models.User {
