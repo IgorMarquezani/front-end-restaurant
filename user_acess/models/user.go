@@ -15,20 +15,44 @@ type User struct {
 }
 
 const (
-  registerURL string = "http://localhost:6000/api/user/register" 
-  loginURL    string = "http://localhost:6000/api/user/login"
+	registerURL string = "http://localhost:6000/api/user/register"
+	loginURL    string = "http://localhost:6000/api/user/login"
 )
 
-func NewUserRequest(user User) error {
+func NewUserRequest(user UserRegister) (int, error) {
 	jsonUser, _ := json.Marshal(user)
 	body := bytes.NewBuffer(jsonUser)
 
 	request, err := http.NewRequest("POST", registerURL, body)
 	if err != nil {
+		return 0, err
+	}
+
+	request.Header.Set("Content-Type", "application/json")
+
+	client := http.Client{}
+	response, err := client.Do(request)
+	if err != nil {
+		return response.StatusCode, err
+	}
+
+	if response.StatusCode == http.StatusCreated {
+		return response.StatusCode, nil
+	}
+
+	return response.StatusCode, errors.New("User not created")
+}
+
+func LoginUserRequest(w *http.ResponseWriter, user User) error {
+	jsonUser, _ := json.Marshal(user)
+	body := bytes.NewBuffer(jsonUser)
+
+	request, err := http.NewRequest("POST", loginURL, body)
+	if err != nil {
 		return err
 	}
 
-  request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("Content-Type", "application/json")
 
 	client := http.Client{}
 	response, err := client.Do(request)
@@ -36,39 +60,15 @@ func NewUserRequest(user User) error {
 		return err
 	}
 
-	if response.StatusCode == http.StatusCreated {
-    return nil
+	if response.StatusCode == http.StatusAccepted {
+		cookies := response.Cookies()
+		session := cookies[0]
+
+		if session.Name == "_SecurePS" {
+			http.SetCookie(*w, session)
+			return nil
+		}
 	}
 
-	return errors.New("User not created") 
-}
-
-func LoginUserRequest(w *http.ResponseWriter, user User) error {
-  jsonUser, _ := json.Marshal(user)
-  body := bytes.NewBuffer(jsonUser)
-
-  request, err := http.NewRequest("POST", loginURL, body)
-  if err != nil {
-    return err
-  }
-
-  request.Header.Set("Content-Type", "application/json")
-
-  client := http.Client{}
-  response, err := client.Do(request)
-  if err != nil {
-    return err
-  }
-
-  if response.StatusCode == http.StatusAccepted {
-    cookies := response.Cookies()
-    session := cookies[0]
-
-    if session.Name == "_SecurePS" {
-      http.SetCookie(*w, session)
-      return nil
-    }
-  }
-
-  return errors.New("Could not login") 
+	return errors.New("Could not login")
 }

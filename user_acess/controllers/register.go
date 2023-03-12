@@ -94,16 +94,21 @@ func Register(c echo.Context) error {
 	}
 
 	user := UserFromRegisterForm(rf)
-	if err := models.NewUserRequest(user); err != nil {
+	if statusCode, err := models.NewUserRequest(user); err != nil {
 		log.Println("\033[31m", err, "\033[0m")
-	  c.Render(http.StatusBadRequest, "Register", rf)
-    return nil
+
+		if statusCode == http.StatusAlreadyReported {
+			rf.Errs.EmailErr = "E-mail already in use"
+		}
+
+		c.Render(http.StatusBadRequest, "Register", rf)
+		return nil
 	}
 
-  return c.Redirect(http.StatusMovedPermanently, "http://localhost:8080/login")
+	return c.Redirect(http.StatusMovedPermanently, "http://localhost:8080/login")
 }
 
-func UserFromRegisterForm(rf registerForm) models.User {
+func UserFromRegisterForm(rf registerForm) models.UserRegister {
 	user := models.User{
 		Name:   rf.Name,
 		Email:  rf.Email,
@@ -114,7 +119,12 @@ func UserFromRegisterForm(rf registerForm) models.User {
 		user.Img = rf.Img
 	}
 
+	userRegister := models.UserRegister{
+		User:    user,
+		Confirm: rf.Confirm,
+	}
+
 	log.Println(rf.Errs.ImgErr)
 
-	return user
+	return userRegister
 }

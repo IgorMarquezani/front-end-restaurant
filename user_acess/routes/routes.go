@@ -7,7 +7,7 @@ import (
 )
 
 func LoadRoutes(e *echo.Echo) {
-  e.Static("/templates", "templates")
+	e.Static("/templates", "templates")
 	e.Any("/register", controllers.Register, middleware.Logger())
-  e.Any("/login", controllers.Login, middleware.Logger())
+	e.Any("/login", controllers.Login, middleware.Logger())
 }

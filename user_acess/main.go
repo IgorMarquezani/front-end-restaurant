@@ -24,7 +24,7 @@ func main() {
 	}
 
 	e.Renderer = &t
-  routes.LoadRoutes(e)
+	routes.LoadRoutes(e)
 
 	e.Server.Addr = "localhost:8080"
 	e.Server.ListenAndServe()

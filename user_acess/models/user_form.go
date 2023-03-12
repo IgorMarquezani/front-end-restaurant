@@ -5,6 +5,11 @@ import (
 	"net/mail"
 )
 
+type UserRegister struct {
+	User    User   `json:"user"`
+	Confirm string `json:"confirm_passwd"`
+}
+
 type FormEmail interface {
 	GetEmail() string
 }

@@ -8,45 +8,45 @@ import (
 )
 
 type loginForm struct {
-  Email string
-  Passwd string
-  Err string 
+	Email  string
+	Passwd string
+	Err    string
 }
 
 func (lf loginForm) GetEmail() string {
-  return lf.Email
+	return lf.Email
 }
 
 func (lf *loginForm) AllLoginFormValues(c echo.Context) {
-  lf.Email = c.FormValue("email")
-  lf.Passwd = c.FormValue("passwd")
+	lf.Email = c.FormValue("email")
+	lf.Passwd = c.FormValue("passwd")
 }
 
 func Login(c echo.Context) error {
-  if c.Request().Method != "POST" {
-    c.Render(http.StatusOK, "Login", nil)
-    return nil
-  }
+	if c.Request().Method != "POST" {
+		c.Render(http.StatusOK, "Login", nil)
+		return nil
+	}
 
-  lf := loginForm{}
-  lf.AllLoginFormValues(c)
-  
-  if err := models.IsEmail(lf); err != nil {
-    lf.Err = err.Error()
-    c.Render(http.StatusBadRequest, "Login", lf)
-    return nil
-  }
+	lf := loginForm{}
+	lf.AllLoginFormValues(c)
 
-  user := models.User {
-    Email: lf.Email,
-    Passwd: lf.Passwd,
-  }
+	if err := models.IsEmail(lf); err != nil {
+		lf.Err = err.Error()
+		c.Render(http.StatusBadRequest, "Login", lf)
+		return nil
+	}
 
-  if err := models.LoginUserRequest(&c.Response().Writer, user); err != nil {
-    lf.Err = "Email doesn't exist or passwd not compatible" 
-    c.Render(http.StatusBadRequest, "Login", lf)
-    return nil
-  }
+	user := models.User{
+		Email:  lf.Email,
+		Passwd: lf.Passwd,
+	}
 
-  return c.Redirect(http.StatusPermanentRedirect, "http://localhost:8081/home")
+	if err := models.LoginUserRequest(&c.Response().Writer, user); err != nil {
+		lf.Err = "Email doesn't exist or passwd not compatible"
+		c.Render(http.StatusBadRequest, "Login", lf)
+		return nil
+	}
+
+	return c.Redirect(http.StatusPermanentRedirect, "http://localhost:8081/home")
 }
