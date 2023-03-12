@@ -86,12 +86,13 @@ color: aqua;
             <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-left">
-                    
-                    
                     <div class="col-lg-0 col-md-4 col-sm-4 col-xs-12">
                         <table>
                           <td padding-right="2px"><h4 class="page-title">Salas:</h4></td>
-                        <td padding-right="2px"><button type="button" class="btn btn-primary btn-sm">Sala</button></td>
+                          <td padding-right="2px"><button type="button" class="btn btn-primary btn-sm" value="{{.Room.Id}}">{{.Room.Id}}</button></td>
+                          {{range $index, $room :=.RoomsAsGuest}}
+                          <td padding-right="2px"><button type="button" class="btn btn-primary btn-sm" value="{{$room.Id}}">{{$room.Id}}</button></td>
+                          {{end}}
                       </table>
                     </div>  
                 </div>
@@ -192,20 +193,27 @@ color: aqua;
                         <div class="mb-3">
                             <label for="username">Código Mesa: </label>
                             <input class="form-control" type="text" id="username"
-                                required="" placeholder="Mesa 1">
+                                 placeholder="Mesa 1">
                         </div>
                         <div class="mb-3">
-                            <label for="emailaddress">Numero Comanda</label>
+                            <label for="emailaddress">Número Comanda</label>
                             <input class="form-control" type="text" id="emailaddress"
-                                required="" placeholder="Comanda 1">
+                                placeholder="Comanda 1">
                             </div>
                             <div class="mb-3">
-                                <select class="selectpicker" multiple data-live-search="true">
-                                    <option>Mustard</option>
-                                    <option>Ketchup</option>
-                                    <option>Relish</option>
+                                <select class="selectpicker" id="mySelect">
+                                  {{range $index, $list :=.Room.ProductsList}}
+                                    {{range $index2, $product :=$list.Products}}
+                                      <option value="{{$product.Name}}">{{$product.Name}}</option>
+                                    {{end}}
+                                  {{end}}
                                   </select>
+                                  <button class="btn btn-primary" onclick="addItem()">Adicionar item</button>
                                 </div>
+                                
+                                <div id="myList">
+                                </div>
+                            
                                 <div class="mb-3 text-center">
                             <button class="btn btn-primary" type="submit">Cadastrar Comanda</button>
                         </div>
@@ -240,6 +248,98 @@ color: aqua;
                         data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
+
+<script>
+var itemCount = 0;
+
+function addItem() {
+  // Seleciona o elemento <select>
+    var br = document.createElement("br");
+  var select = document.getElementById("mySelect");
+  
+  // Obtém o item selecionado
+  var selectedItem = select.options[select.selectedIndex].value;
+  
+  // Cria um elemento <label> para o item selecionado
+  var label = document.createElement("label");
+  label.innerText = selectedItem;
+  
+  // Cria um elemento <span> para o contador e os botões
+  var span = document.createElement("span");
+  
+  // Cria um botão "aumentar" para o contador
+  var increaseButton = document.createElement("button");
+  increaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
+  increaseButton.innerText = "+";
+  increaseButton.style.marginRight = "10px";
+  increaseButton.style.marginLeft = "10px";
+  increaseButton.onclick = function() { increaseCounter(span); };
+  
+  // Cria um botão "diminuir" para o contador
+  var decreaseButton = document.createElement("button");
+  decreaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary" ;
+  decreaseButton.innerText = "-";
+  decreaseButton.style.marginRight = "10px";
+  decreaseButton.style.marginLeft = "10px";
+  decreaseButton.onclick = function() { decreaseCounter(span); };
+  
+  // Cria um botão "remover" para o item
+  var removeButton = document.createElement("button");
+  removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";                                 
+  removeButton.innerText = "Remover";
+  removeButton.onclick = function() { removeItem(label, span); };
+  
+  // Cria um contador para o item
+  var counter = document.createElement("span");
+  counter.className = "counter text-dark"
+  counter.innerText = "0";
+  
+  // Adiciona o contador e os botões ao elemento <span>
+  span.appendChild(increaseButton);
+  span.appendChild(counter);
+  span.appendChild(decreaseButton);
+  span.appendChild(removeButton);
+  
+  // Adiciona o elemento <label> e o elemento <span> à lista
+  var list = document.getElementById("myList");
+  list.appendChild(label);
+  list.appendChild(span);
+  list.appendChild(br);
+  
+  // Incrementa o contador de itens
+  itemCount++;
+}
+
+function increaseCounter(span) {
+  // Obtém o contador do elemento <span>
+  var counter = span.getElementsByTagName("span")[0];
+  
+  // Incrementa o contador
+  counter.innerText = parseInt(counter.innerText) + 1;
+}
+
+function decreaseCounter(span) {
+  // Obtém o contador do elemento <span>
+  var counter = span.getElementsByTagName("span")[0];
+  
+  // Decrementa o contador, se ele não for menor que zero
+  if (parseInt(counter.innerText) > 0) {
+    counter.innerText = parseInt(counter.innerText) - 1;
+  }
+}
+
+function removeItem(label, span) {
+  // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
+  var list = document.getElementById("myList");
+  list.removeChild(label);
+  list.removeChild(span);
+  list.removeChild(br);
+  
+  // Decrementa o contador de itens
+  itemCount--;
+}
+
+    </script>
         <!-- /.modal-content -->
     <!-- ============================================================== -->
     <!-- End Wrapper -->

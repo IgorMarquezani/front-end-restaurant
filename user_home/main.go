@@ -25,10 +25,10 @@ func main() {
 	}
 
 	e.Renderer = &t
-  e.Static("/templates", "templates")
+	e.Static("/templates", "templates")
 
-  e.Any("/home", controllers.Home, middleware.Logger())
-  e.File("/css/newstyle.css", "templates/css/newstyle.css", middleware.Logger())
+	e.Any("/home", controllers.Home, middleware.Logger())
+	e.File("/css/newstyle.css", "templates/css/newstyle.css", middleware.Logger())
 
 	e.Server.Addr = "localhost:8081"
 	e.Server.ListenAndServe()
