@@ -27,6 +27,10 @@ color: aqua;
   background-color: #808080; /* Green */
   color: #808080;
 }
+#myList {
+  height: auto;
+  overflow: hidden;
+}
         </style>
         
     <meta charset="utf-8">
@@ -254,19 +258,19 @@ var itemCount = 0;
 
 function addItem() {
   // Seleciona o elemento <select>
+    var select = document.getElementById("mySelect");
+    
+    // Obtém o item selecionado
+    var selectedItem = select.options[select.selectedIndex].value;
+    
+    // Cria um elemento <label> para o item selecionado
+        var label = document.createElement("label");
+        label.innerText = selectedItem;
+        
+        // Cria um elemento <span> para o contador e os botões
+            var span = document.createElement("span");
+            
     var br = document.createElement("br");
-  var select = document.getElementById("mySelect");
-  
-  // Obtém o item selecionado
-  var selectedItem = select.options[select.selectedIndex].value;
-  
-  // Cria um elemento <label> para o item selecionado
-  var label = document.createElement("label");
-  label.innerText = selectedItem;
-  
-  // Cria um elemento <span> para o contador e os botões
-  var span = document.createElement("span");
-  
   // Cria um botão "aumentar" para o contador
   var increaseButton = document.createElement("button");
   increaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
@@ -287,7 +291,7 @@ function addItem() {
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";                                 
   removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem(label, span); };
+  removeButton.onclick = function() { removeItem(label, span, br); };
   
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -305,6 +309,7 @@ function addItem() {
   list.appendChild(label);
   list.appendChild(span);
   list.appendChild(br);
+
   
   // Incrementa o contador de itens
   itemCount++;
@@ -328,15 +333,14 @@ function decreaseCounter(span) {
   }
 }
 
-function removeItem(label, span) {
+function removeItem(label, span,br) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
   var list = document.getElementById("myList");
   list.removeChild(label);
   list.removeChild(span);
   list.removeChild(br);
   
-  // Decrementa o contador de itens
-  itemCount--;
+itemCount--;
 }
 
     </script>
