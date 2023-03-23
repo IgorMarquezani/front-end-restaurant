@@ -1,0 +1,29 @@
+
+td {
+  padding-right: 10px;
+};
+
+.btn{
+  padding-right:10px;
+}
+
+.btn2 {
+  transition-duration: 0.4s;
+  all: unset;
+  cursor: pointer;
+  color: black;
+  border: none
+}
+
+.btn2:focus{
+  outline: none;
+}
+
+.service h3{
+  color: aqua;
+}
+
+.btn2:hover {
+  background-color: #808080; /* Green */
+  color: #808080;
+}

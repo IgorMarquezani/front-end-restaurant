@@ -15,7 +15,7 @@ type HomePage struct {
 
 func Home(c echo.Context) error {
 	body := bytes.NewBuffer(make([]byte, 1))
-	request, err := http.NewRequest("POST", models.Full_user_infoURL, body)
+	request, err := http.NewRequest("POST", models.FullUserInfoURL, body)
 
 	cookie, err := c.Cookie("_SecurePS")
 	if err != nil {
@@ -34,7 +34,9 @@ func Home(c echo.Context) error {
 		user := models.User{}
 		json.NewDecoder(response.Body).Decode(&user)
 		fmt.Println(user)
-		return c.Render(http.StatusOK, "Home", user)
+		err := c.Render(http.StatusOK, "Home", user)
+		fmt.Println(err)
+		return nil
 	}
 
 	return nil

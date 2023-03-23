@@ -1,0 +1,132 @@
+{{define "TabsIframe"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/templates/css/tabs.css" rel="stylesheet">
+  </head>
+  <body>
+                <div class="row justify-content-left">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="white-box analytics-info">
+                            <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#al-info-alert">
+                                        <h3 class="box-title">Comanda Teste</h3>
+                                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                            <li>
+                                                <div>
+                                                    <i class="fas fa-3x fa-users" aria-hidden="true"></i>
+                                                </div>
+                                            </li>
+                                            <li class="ms-auto"><span class="counter text-dark">R$ 0,00</span>
+                                            </li>
+                                        </ul>
+                                </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="white-box analytics-info">
+                            <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#signup-modal1">
+                                    <h3 class="box-title">Adicionar Comanda</h3>
+                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                        <li>
+                                            <div>
+                                                <i class="fas fa-3x fa-plus" aria-hidden="true"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                            </div>
+                        </button>
+                        </div>
+                </div>
+                <div class="d-md-flex">
+                    <ul class="list-inline d-flex ms-auto">
+                        <li class="ps-3">
+                            <h5><i class="fa fa-circle me-1 text-red"></i>Ocupado</h5>
+                        </li>
+                        <li class="ps-3">
+                            <h5><i class="fa fa-circle me-1 text-green"></i>Livre</h5>
+                        </li>
+                        <li class="ps-3">
+                            <h5><i class="fa fa-circle me-1 text-yellow"></i>Espera</h5>
+                        </li>
+                    </ul>
+                </div>
+
+        <!-- modal -->
+        <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Comanda</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="ps-3 pe-3 text-start" action="#">
+                        <div class="mb-3">
+                            <label for="username">Código Mesa: </label>
+                            <input class="form-control" type="text" id="username"
+                                 placeholder="Mesa 1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailaddress">Número Comanda</label>
+                            <input class="form-control" type="text" id="emailaddress"
+                                placeholder="Comanda 1">
+                            </div>
+                            <div class="mb-3">
+                                <select class="selectpicker" id="mySelect">
+                                  {{range $index, $list :=.ProductsList}}
+                                    {{range $index2, $product :=$list.Products}}
+                                      <option value="{{$product.Name}}">{{$product.Name}}</option>
+                                    {{end}}
+                                  {{end}}
+                                </select>
+
+                                  <button class="btn btn-primary" onclick="addItem()">Adicionar item</button>
+                                </div>
+                                
+                                <div id="myList">
+                                </div>
+                                 
+                                <div class="mb-3 text-center">
+                            <button class="btn btn-primary" type="submit">Cadastrar Comanda</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-light-info">
+            <div class="modal-header modal-colored-header bg-primary text-white">
+                <h4 class="modal-title" id="primary-header-modalLabel">Informações da X mesa
+                </h4>
+                </div>
+            <div class="modal-body p-4">
+                    <i data-feather="info" class="fill-white feather-lg"></i>
+                    <div class="mb-3">
+                        <label for="mesa">Código Mesa: </label>
+                        <label for="mesacodigo">Teste</label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="produtos">Produtos: </label>
+                        <label for="produtoslista">Carne,Sla </label>
+                    </div>
+                    <button type="button" class="btn btn-primary"
+                        data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+      </div>
+  </div>
+  </body>
+</html>
+
+<script src="/templates/js/tabs.js"> </script>
+{{end}}

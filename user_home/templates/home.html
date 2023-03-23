@@ -4,31 +4,6 @@
 <html dir="ltr" lang="pt-br">
 
 <head>
-    <style>
-
-        td {
-          padding-right: 10px;
-        };
-        .btn2 {
-  transition-duration: 0.4s;
-  all: unset;
-  cursor: pointer;
-  color: aqua;
-  border: none
-  
-}
-.btn2:focus{
-    outline: none;
-}
-.service h3{
-color: aqua;
-}
-.btn2:hover {
-  background-color: #808080; /* Green */
-  color: #808080;
-}
-        </style>
-        
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
@@ -73,7 +48,7 @@ color: aqua;
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         {{template "_header" .}}
         {{template "_aside" .}}
@@ -88,10 +63,16 @@ color: aqua;
                 <div class="row align-items-left">
                     <div class="col-lg-0 col-md-4 col-sm-4 col-xs-12">
                         <table>
-                          <td padding-right="2px"><h4 class="page-title">Salas:</h4></td>
-                          <td padding-right="2px"><button type="button" class="btn btn-primary btn-sm" value="{{.Room.Id}}">{{.Room.Id}}</button></td>
+                          <td padding-right="2px">
+                            <h4 class="page-title">Salas:</h4>
+                          </td>
+                          <td padding-right="2px">
+                            <button id="{{.Room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{.Room.Id}}">{{.Room.Id}}</button>
+                          </td>
                           {{range $index, $room :=.RoomsAsGuest}}
-                          <td padding-right="2px"><button type="button" class="btn btn-primary btn-sm" value="{{$room.Id}}">{{$room.Id}}</button></td>
+                          <td padding-right="2px">
+                            <button name="comanda-{{$room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{$room.Id}}">{{$room.Id}}</button>
+                          </td>
                           {{end}}
                       </table>
                     </div>  
@@ -104,244 +85,37 @@ color: aqua;
                         <h4 class="page-title">Comandas:</h4>
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
+            <!-- /.col-lg-12 -->
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
                 <!-- ============================================================== -->
+            <iframe name="tabs-iframe" src="http://localhost:8081/room?id=1" width="100%" height="100%"></iframe>
                 <!-- Three charts -->
                 <!-- ============================================================== -->
-                <div class="row justify-content-left">
-                    <div class="col-lg-3 col-md-12">
-                        <div class="white-box analytics-info">
-                            <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#al-info-alert">
-                                        <h3 class="box-title">Comanda Teste</h3>
-                                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                            <li>
-                                                <div>
-                                                    <i class="fas fa-3x fa-users" aria-hidden="true"></i>
-                                                </div>
-                                            </li>
-                                            <li class="ms-auto"><span class="counter text-dark">R$ 0,00</span>
-                                            </li>
-                                        </ul>
-                                </button>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="white-box analytics-info">
-                            <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#signup-modal1">
-                                    <h3 class="box-title">Adicionar Comanda</h3>
-                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                        <li>
-                                            <div>
-                                                <i class="fas fa-3x fa-plus" aria-hidden="true"></i>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                            </div>
-                        </button>
-                        </div>
-                </div>
-                <div class="d-md-flex">
-                    <ul class="list-inline d-flex ms-auto">
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-red"></i>Ocupado</h5>
-                        </li>
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-green"></i>Livre</h5>
-                        </li>
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-yellow"></i>Espera</h5>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
+        </div>
+        </div>
             <footer class="footer text-center"> 
                 2022 © Fatec Ourinhos
             </footer>
+            
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
-        </div>
+        
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
-        <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Cadastro de Comanda</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="ps-3 pe-3 text-start" action="#">
-                        <div class="mb-3">
-                            <label for="username">Código Mesa: </label>
-                            <input class="form-control" type="text" id="username"
-                                 placeholder="Mesa 1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="emailaddress">Número Comanda</label>
-                            <input class="form-control" type="text" id="emailaddress"
-                                placeholder="Comanda 1">
-                            </div>
-                            <div class="mb-3">
-                                <select class="selectpicker" id="mySelect">
-                                  {{range $index, $list :=.Room.ProductsList}}
-                                    {{range $index2, $product :=$list.Products}}
-                                      <option value="{{$product.Name}}">{{$product.Name}}</option>
-                                    {{end}}
-                                  {{end}}
-                                  </select>
-                                  <button class="btn btn-primary" onclick="addItem()">Adicionar item</button>
-                                </div>
-                                
-                                <div id="myList">
-                                </div>
-                            
-                                <div class="mb-3 text-center">
-                            <button class="btn btn-primary" type="submit">Cadastrar Comanda</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    </div>
-    <!-- Vertically centered modal -->
-<div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content modal-filled bg-light-info">
-            <div class="modal-header modal-colored-header bg-primary text-white">
-                <h4 class="modal-title" id="primary-header-modalLabel">Informações da X mesa
-                </h4>
-                </div>
-            <div class="modal-body p-4">
-                    <i data-feather="info" class="fill-white feather-lg"></i>
-                    <div class="mb-3">
-                        <label for="mesa">Código Mesa: </label>
-                        <label for="mesacodigo">Teste</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="produtos">Produtos: </label>
-                        <label for="produtoslista">Carne,Sla </label>
-                    </div>
-                    <button type="button" class="btn btn-primary"
-                        data-bs-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-
-<script>
-var itemCount = 0;
-
-function addItem() {
-  // Seleciona o elemento <select>
-    var br = document.createElement("br");
-  var select = document.getElementById("mySelect");
-  
-  // Obtém o item selecionado
-  var selectedItem = select.options[select.selectedIndex].value;
-  
-  // Cria um elemento <label> para o item selecionado
-  var label = document.createElement("label");
-  label.innerText = selectedItem;
-  
-  // Cria um elemento <span> para o contador e os botões
-  var span = document.createElement("span");
-  
-  // Cria um botão "aumentar" para o contador
-  var increaseButton = document.createElement("button");
-  increaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
-  increaseButton.innerText = "+";
-  increaseButton.style.marginRight = "10px";
-  increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function() { increaseCounter(span); };
-  
-  // Cria um botão "diminuir" para o contador
-  var decreaseButton = document.createElement("button");
-  decreaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary" ;
-  decreaseButton.innerText = "-";
-  decreaseButton.style.marginRight = "10px";
-  decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function() { decreaseCounter(span); };
-  
-  // Cria um botão "remover" para o item
-  var removeButton = document.createElement("button");
-  removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";                                 
-  removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem(label, span); };
-  
-  // Cria um contador para o item
-  var counter = document.createElement("span");
-  counter.className = "counter text-dark"
-  counter.innerText = "0";
-  
-  // Adiciona o contador e os botões ao elemento <span>
-  span.appendChild(increaseButton);
-  span.appendChild(counter);
-  span.appendChild(decreaseButton);
-  span.appendChild(removeButton);
-  
-  // Adiciona o elemento <label> e o elemento <span> à lista
-  var list = document.getElementById("myList");
-  list.appendChild(label);
-  list.appendChild(span);
-  list.appendChild(br);
-  
-  // Incrementa o contador de itens
-  itemCount++;
-}
-
-function increaseCounter(span) {
-  // Obtém o contador do elemento <span>
-  var counter = span.getElementsByTagName("span")[0];
-  
-  // Incrementa o contador
-  counter.innerText = parseInt(counter.innerText) + 1;
-}
-
-function decreaseCounter(span) {
-  // Obtém o contador do elemento <span>
-  var counter = span.getElementsByTagName("span")[0];
-  
-  // Decrementa o contador, se ele não for menor que zero
-  if (parseInt(counter.innerText) > 0) {
-    counter.innerText = parseInt(counter.innerText) - 1;
-  }
-}
-
-function removeItem(label, span) {
-  // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
-  var list = document.getElementById("myList");
-  list.removeChild(label);
-  list.removeChild(span);
-  list.removeChild(br);
-  
-  // Decrementa o contador de itens
-  itemCount--;
-}
-
-    </script>
-        <!-- /.modal-content -->
-    <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->

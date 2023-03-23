@@ -19,9 +19,9 @@ type User struct {
 }
 
 const (
-	Full_user_infoURL string = "http://localhost:6000/api/user/full-info"
-	registerURL       string = "http://localhost:6000/api/user/register"
-	loginURL          string = "http://localhost:6000/api/user/login"
+	FullUserInfoURL string = "http://localhost:6000/api/user/full-info"
+	registerURL     string = "http://localhost:6000/api/user/register"
+	loginURL        string = "http://localhost:6000/api/user/login"
 )
 
 func NewUserRequest(user User) error {

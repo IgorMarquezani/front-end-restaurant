@@ -28,6 +28,7 @@ func main() {
 	e.Static("/templates", "templates")
 
 	e.Any("/home", controllers.Home, middleware.Logger())
+	e.GET("/room", controllers.Tabs, middleware.Logger())
 	e.File("/css/newstyle.css", "templates/css/newstyle.css", middleware.Logger())
 
 	e.Server.Addr = "localhost:8081"
