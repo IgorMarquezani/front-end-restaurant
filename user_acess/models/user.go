@@ -30,8 +30,7 @@ func NewUserRequest(user UserRegister) (int, error) {
 
 	request.Header.Set("Content-Type", "application/json")
 
-	client := http.Client{}
-	response, err := client.Do(request)
+	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		return response.StatusCode, err
 	}
@@ -54,15 +53,13 @@ func LoginUserRequest(w *http.ResponseWriter, user User) error {
 
 	request.Header.Set("Content-Type", "application/json")
 
-	client := http.Client{}
-	response, err := client.Do(request)
+	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		return err
 	}
 
 	if response.StatusCode == http.StatusAccepted {
-		cookies := response.Cookies()
-		session := cookies[0]
+		session := response.Cookies()[0]
 
 		if session.Name == "_SecurePS" {
 			http.SetCookie(*w, session)

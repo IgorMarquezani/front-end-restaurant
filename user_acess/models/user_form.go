@@ -10,8 +10,17 @@ type UserRegister struct {
 	Confirm string `json:"confirm_passwd"`
 }
 
+type FormName interface {
+	GetName() string
+}
+
 type FormEmail interface {
 	GetEmail() string
+}
+
+type FormPasswd interface {
+	GetPasswd() string
+	GetConfirm() string
 }
 
 func IsEmail(form FormEmail) error {
@@ -23,10 +32,6 @@ func IsEmail(form FormEmail) error {
 	return nil
 }
 
-type FormName interface {
-	GetName() string
-}
-
 func IsNameEmpty(form FormName) error {
 	if form.GetName() == "" {
 		return errors.New("Empty name")
@@ -35,14 +40,9 @@ func IsNameEmpty(form FormName) error {
 	return nil
 }
 
-type FormPasswd interface {
-	GetPasswd() string
-	GetConfirm() string
-}
-
 func DifferentPasswords(form FormPasswd) error {
 	if form.GetPasswd() == "" || form.GetConfirm() == "" {
-		return errors.New("Passwords doesn't match")
+		return errors.New("passwords doesn't match")
 	}
 
 	if form.GetPasswd() != form.GetConfirm() {
