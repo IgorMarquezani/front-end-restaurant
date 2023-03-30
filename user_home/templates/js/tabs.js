@@ -88,3 +88,7 @@ itemCount--;
 }
 
 $('select').selectpicker();
+
+function MakeTabRequest(tab) {
+
+}
