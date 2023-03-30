@@ -3,8 +3,9 @@ package models
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 type User struct {
@@ -19,61 +20,27 @@ type User struct {
 }
 
 const (
-	FullUserInfoURL string = "http://localhost:6000/api/user/full-info"
-	registerURL     string = "http://localhost:6000/api/user/register"
-	loginURL        string = "http://localhost:6000/api/user/login"
+	userInfoURL string = "http://localhost:6000/api/user/full-info"
 )
 
-func NewUserRequest(user User) error {
-	jsonUser, _ := json.Marshal(user)
-	body := bytes.NewBuffer(jsonUser)
+func MustFullUserInfo (c echo.Context) (User, int) {
+  var user User
 
-	request, err := http.NewRequest("POST", registerURL, body)
+	request, err := http.NewRequest("POST", userInfoURL, bytes.NewBuffer(make([]byte, 0)))
+
+	cookie, err := c.Cookie("_SecurePS")
 	if err != nil {
-		return err
+		panic(err)
 	}
 
-	request.Header.Set("Content-Type", "application/json")
+	request.AddCookie(cookie)
 
-	client := http.Client{}
-	response, err := client.Do(request)
+	response, err := http.DefaultClient.Do(request)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
-	if response.StatusCode == http.StatusCreated {
-		return nil
-	}
-
-	return errors.New("User not created")
+	json.NewDecoder(response.Body).Decode(&user)
+  return user, response.StatusCode
 }
 
-func LoginUserRequest(w *http.ResponseWriter, user User) error {
-	jsonUser, _ := json.Marshal(user)
-	body := bytes.NewBuffer(jsonUser)
-
-	request, err := http.NewRequest("POST", loginURL, body)
-	if err != nil {
-		return err
-	}
-
-	request.Header.Set("Content-Type", "application/json")
-
-	client := http.Client{}
-	response, err := client.Do(request)
-	if err != nil {
-		return err
-	}
-
-	if response.StatusCode == http.StatusAccepted {
-		cookies := response.Cookies()
-		session := cookies[0]
-
-		if session.Name == "_SecurePS" {
-			http.SetCookie(*w, session)
-			return nil
-		}
-	}
-
-	return errors.New("Could not login")
-}

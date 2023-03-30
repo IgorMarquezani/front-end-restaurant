@@ -19,27 +19,26 @@ type Room struct {
 }
 
 const (
-	fullRoomInfoURL = "http://localhost:6000/api/room/full-info/?id="
+	roomInfoURL = "http://localhost:6000/api/room/full-info/?id="
 )
 
-func FullRoomInfo(e echo.Context) (Room, int) {
-	body := bytes.NewBuffer(make([]byte, 1))
-	id := e.QueryParam("id")
-	request, err := http.NewRequest("GET", fullRoomInfoURL+id, body)
-	cookie, err := e.Cookie("_SecurePS")
+func FullRoomInfo(c echo.Context) (Room, int) {
+  var room Room
+
+	request, err := http.NewRequest("GET", roomInfoURL + c.QueryParam("id"), bytes.NewBuffer(make([]byte, 1)))
+
+	cookie, err := c.Cookie("_SecurePS")
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	request.AddCookie(cookie)
 
-	client := http.Client{}
-	response, err := client.Do(request)
+	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		panic(err)
 	}
 
-	room := Room{}
 	if response.StatusCode == http.StatusOK {
 		json.NewDecoder(response.Body).Decode(&room)
 		fmt.Println(room)

@@ -10,6 +10,7 @@ import (
 
 func Tabs(c echo.Context) error {
 	room, status := models.FullRoomInfo(c)
+
 	if status == http.StatusOK {
 		log.Println(room)
 		err := c.Render(http.StatusOK, "TabsIframe", room)

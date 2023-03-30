@@ -35,22 +35,24 @@
   </head>
   <body>
                 <div class="row justify-content-left">
+    {{range $index, $tab :=.Tabs}}
                     <div class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
                             <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#al-info-alert">
-                                        <h3 class="box-title">Comanda Teste</h3>
+                              <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
                                         <ul class="list-inline two-part d-flex align-items-center mb-0">
                                             <li>
                                                 <div>
                                                     <i class="fas fa-3x fa-users" aria-hidden="true"></i>
                                                 </div>
                                             </li>
-                                            <li class="ms-auto"><span class="counter text-dark">R$ 0,00</span>
+                                            <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
                                             </li>
                                         </ul>
-                                </button>
+                              </button>
                         </div>
                     </div>
+    {{end}}
                     <div class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
                             <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#signup-modal1">
@@ -65,22 +67,8 @@
 
                             </div>
                         </button>
-                        </div>
+                      </div>
                 </div>
-                <div class="d-md-flex">
-                    <ul class="list-inline d-flex ms-auto">
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-red"></i>Ocupado</h5>
-                        </li>
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-green"></i>Livre</h5>
-                        </li>
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-yellow"></i>Espera</h5>
-                        </li>
-                    </ul>
-                </div>
-
         <!-- modal -->
         <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog"
         aria-hidden="true">
@@ -124,10 +112,9 @@
                     </form>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
+
 <div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content modal-filled bg-light-info">
@@ -169,6 +156,6 @@
     <script src="/templates/plugins/bower_components/chartist/dist/chartist.min.js"></script>
     <script src="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/templates/js/pages/dashboards/dashboard1.js"></script>
-<script src="/templates/js/tabs.js"> </script>
+    <script src="/templates/js/tabs.js"> </script>
 </html>
 {{end}}

@@ -68,11 +68,11 @@
                             <h4 class="page-title">Salas:</h4>
                           </td>
                           <td padding-right="2px">
-                            <button id="{{.Room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{.Room.Id}}">{{.Room.Id}}</button>
+                            <a href="http://localhost:8081/room?id={{.Room.Id}}" target="tabs-iframe" name="room-{{.Room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{.Room.Id}}">{{.Room.Id}}</a>
                         </td>
                           {{range $index, $room :=.RoomsAsGuest}}
                           <td padding-right="2px">
-                            <button name="comanda-{{$room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{$room.Id}}">{{$room.Id}}</button>
+                            <a href="http://localhost:8081/room?id={{$room.Id}}" target="tabs-iframe" name="room-{{$room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{$room.Id}}">{{$room.Id}}</a>
                           </td>
                           {{end}}
                       </table>
@@ -87,27 +87,8 @@
                     </div>
                 </div>
             </div>
-            <!-- /.col-lg-12 -->
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-                <!-- ============================================================== -->
-
-                
-                <!-- </div> -->
-                <!-- Three charts -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- End Container fluid  -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- footer -->
-                <!-- ============================================================== -->
             <div class="myIframe">
-            <iframe name="tabs-iframe" src="http://localhost:8081/room?id=5" width="100%" height="100%"></iframe>
+              <iframe name="tabs-iframe" src="http://localhost:8081/room?id={{.Room.Id}}" width="100%" height="100%"></iframe>
         </div>
         </div>
 
