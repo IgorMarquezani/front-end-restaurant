@@ -53,7 +53,6 @@ function addItem() {
   list.appendChild(label);
   list.appendChild(span);
   list.appendChild(br);
-
   
   // Incrementa o contador de itens
   itemCount++;
@@ -84,10 +83,14 @@ function removeItem(label, span,br) {
   list.removeChild(span);
   list.removeChild(br);
   
-itemCount--;
+  itemCount--;
 }
 
-$('select').selectpicker();
+const tabs = new Map();
+
+function addTabToMap(index, tab) {
+  tabs.set(index, JSON.stringify(tab));
+}
 
 function MakeTabRequest(tab) {
 

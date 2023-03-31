@@ -28,15 +28,20 @@
     <link rel="stylesheet" href="/templates/css/icons/font-awesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link href="/templates/css/tabs.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <link href="/templates/css/tabs.css" rel="stylesheet">
+    <script src="/templates/js/tabs.js"> </script>
   </head>
   <body>
                 <div class="row justify-content-left">
     {{range $index, $tab :=.Tabs}}
-                    <div class="col-lg-3 col-md-12">
+    <h6>{{$tab.Json}}</h6>
+    <script type="text/javascript">
+        tabs.set({{$tab.Number}}, JSON.parse(`{{$tab.Json}}`));
+    </script>
+    <div name="tab" class="col-lg-3 col-md-12">
                         <div class="white-box analytics-info">
                             <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#al-info-alert">
                               <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
@@ -156,6 +161,5 @@
     <script src="/templates/plugins/bower_components/chartist/dist/chartist.min.js"></script>
     <script src="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/templates/js/pages/dashboards/dashboard1.js"></script>
-    <script src="/templates/js/tabs.js"> </script>
 </html>
 {{end}}

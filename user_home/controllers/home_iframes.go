@@ -13,6 +13,9 @@ func Tabs(c echo.Context) error {
 
 	if status == http.StatusOK {
 		log.Println(room)
+    for i := range room.Tabs {
+      room.Tabs[i].Json = room.Tabs[i].ToJson()
+    }
 		err := c.Render(http.StatusOK, "TabsIframe", room)
 		log.Println(err)
 	}

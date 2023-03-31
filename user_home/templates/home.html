@@ -33,7 +33,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
+<script src="/templates/js/rooms.js"></script>
 </head>
 
 <body>
@@ -68,11 +68,13 @@
                             <h4 class="page-title">Salas:</h4>
                           </td>
                           <td padding-right="2px">
-                            <a href="http://localhost:8081/room?id={{.Room.Id}}" target="tabs-iframe" name="room-{{.Room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{.Room.Id}}">{{.Room.Id}}</a>
+                            <a href="http://localhost:8081/room?id={{.Room.Id}}" target="tabs-iframe" name="room-{{.Room.Id}}" type="button" 
+                              class="btn btn-primary btn-sm" value="{{.Room.Id}}" onclick="updateActiveRoom('{{.Room.Id}}')">{{.Room.Id}}</a>
                         </td>
                           {{range $index, $room :=.RoomsAsGuest}}
                           <td padding-right="2px">
-                            <a href="http://localhost:8081/room?id={{$room.Id}}" target="tabs-iframe" name="room-{{$room.Id}}" type="button" class="btn btn-primary btn-sm" value="{{$room.Id}}">{{$room.Id}}</a>
+                            <a href="http://localhost:8081/room?id={{$room.Id}}" target="tabs-iframe" name="room-{{$room.Id}}" type="button" 
+                              class="btn btn-primary btn-sm" value="{{$room.Id}}" onclick="updateActiveRoom('{{$room.Id}}')">{{$room.Id}}</a>
                           </td>
                           {{end}}
                       </table>
