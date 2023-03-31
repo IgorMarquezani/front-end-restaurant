@@ -93,5 +93,43 @@ function addTabToMap(index, tab) {
 }
 
 function MakeTabRequest(tab) {
+function sendValuesToEndpoint() {
+    const labels = Array.from(document.querySelectorAll('#my-div label'));
+    const spans = Array.from(document.querySelectorAll('#my-div span'));
+    const number = document.querySelector('#number').value;
+    const table = document.querySelector('#table').value;
+    let sum = 0;
+    const requests = [];
+    labels.forEach((label, index) => {
+      const product_name = label.textContent;
+      const quanity = parseInt(spans[index].textContent);
+      // sum += quanity;
+      const request = { product_name: product_name, quanity: sum };
+      requests.push(request);
+    });
 
+    const payload = {number: number , room: room, table: table, requests: requests };
+
+    fetch('localhost:6000/api/tab/register', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Response from server:', data);
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+      });
+  }
+
+}
 }
