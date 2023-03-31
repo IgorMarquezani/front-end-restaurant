@@ -93,9 +93,8 @@ function addTabToMap(index, tab) {
 }
 
 function makeTabRequest() {
-function sendValuesToEndpoint() {
-    const labels = Array.from(document.querySelectorAll('#my-div label'));
-    const spans = Array.from(document.querySelectorAll('#my-div span'));
+    const labels = Array.from(document.querySelectorAll('#myList label'));
+    const spans = Array.from(document.querySelectorAll('#myList span'));
     const number = document.querySelector('#number').value;
     const table = document.querySelector('#table').value;
     const requests = [];
@@ -128,5 +127,4 @@ function sendValuesToEndpoint() {
       .catch(error => {
         console.error('Error sending data:', error);
       });
-  }
 }
