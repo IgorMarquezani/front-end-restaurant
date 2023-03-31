@@ -92,25 +92,24 @@ function addTabToMap(index, tab) {
   tabs.set(index, JSON.stringify(tab));
 }
 
-function MakeTabRequest(tab) {
+function makeTabRequest() {
 function sendValuesToEndpoint() {
     const labels = Array.from(document.querySelectorAll('#my-div label'));
     const spans = Array.from(document.querySelectorAll('#my-div span'));
     const number = document.querySelector('#number').value;
     const table = document.querySelector('#table').value;
-    let sum = 0;
     const requests = [];
     labels.forEach((label, index) => {
       const product_name = label.textContent;
       const quanity = parseInt(spans[index].textContent);
       // sum += quanity;
-      const request = { product_name: product_name, quanity: sum };
+      const request = { product_name: product_name, quanity: quanity };
       requests.push(request);
     });
 
     const payload = {number: number , room: room, table: table, requests: requests };
 
-    fetch('localhost:6000/api/tab/register', {
+    fetch('http://localhost:6000/api/tab/register', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
@@ -130,6 +129,4 @@ function sendValuesToEndpoint() {
         console.error('Error sending data:', error);
       });
   }
-
-}
 }
