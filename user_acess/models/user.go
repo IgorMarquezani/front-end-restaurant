@@ -15,8 +15,8 @@ type User struct {
 }
 
 const (
-	registerURL string = "http://localhost:6000/api/user/register"
-	loginURL    string = "http://localhost:6000/api/user/login"
+	registerURL string = "http://localhost:3300/api/user/register"
+	loginURL    string = "http://localhost:3300/api/user/login"
 )
 
 func NewUserRequest(user UserRegister) (int, error) {

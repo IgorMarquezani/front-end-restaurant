@@ -20,7 +20,7 @@ type User struct {
 }
 
 const (
-	userInfoURL string = "http://localhost:6000/api/user/full-info"
+	userInfoURL string = "http://localhost:3300/api/user/full-info"
 )
 
 func MustFullUserInfo (c echo.Context) (User, int) {

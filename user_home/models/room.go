@@ -19,7 +19,7 @@ type Room struct {
 }
 
 const (
-	roomInfoURL = "http://localhost:6000/api/room/full-info/?id="
+	roomInfoURL = "http://localhost:3300/api/room/full-info/?id="
 )
 
 func FullRoomInfo(c echo.Context) (Room, int) {
