@@ -111,21 +111,24 @@ function makeTabRequest() {
 
   const payload = { number: number, room: room, table: table, requests: requests };
 
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', 'http://localhost:3300/api/tab/register');
-  xhr.setRequestHeader('Accept', '*/*');
-  xhr.setRequestHeader(document.cookie.split("=")[0], document.cookie.split("=")[1])
-  xhr.onload = function () {
-    if (xhr.status === 201) {
-      console.log('Response from server:', xhr.responseText);
-    } else {
-      console.error('Error sending data:', xhr.statusText);
+  fetch('http://localhost:3300/api/tab/register', {
+    method: 'POST',
+    headers: {
+      "Accept": "*/*",
+    },
+    credentials: 'include',
+    body: JSON.stringify(payload)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  };
-  xhr.onerror = function () {
-    console.error('Network error while sending data.');
-  };
-  xhr.send(JSON.stringify(payload));
+    return response.json();
+  })
+  .then(data => {
+    console.log('Response from server:', data);
+  })
+  .catch(error => {
+    console.error('Error sending data:', error);
+  });
 }
-// xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-// xhr.setRequestHeader('Authorization', 'Bearer ' + token);
