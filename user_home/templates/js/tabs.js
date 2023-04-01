@@ -103,13 +103,13 @@ function makeTabRequest() {
   const requests = [];
   labels.forEach((label, index) => {
     const product_name = label.textContent;
-    const quanity = parseInt(spans[index].textContent);
+    const quantity = parseInt(spans[index].textContent);
     // sum += quanity;
-    const request = { product_name: product_name, product_list: product_list, quanity: quanity };
+    const request = { product_name: product_name, product_list: parseInt(product_list), quantity: quantity };
     requests.push(request);
   });
 
-  const payload = { number: number, room: room, table: table, requests: requests };
+  const payload = { number: parseInt(number), room: parseInt(room), table: parseInt(table), requests: requests };
 
   fetch('http://localhost:3300/api/tab/register', {
     method: 'POST',
