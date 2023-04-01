@@ -1,7 +1,8 @@
 {{define "TabsIframe"}}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,63 +21,92 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/templates/plugins/images/favicon.png">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="/templates/plugins/bower_components/chartist/dist/chartist.min.css">
-    <link rel="stylesheet" href="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <link rel="stylesheet"
+        href="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <link rel="stylesheet" href="/templates/css/style.min.css">
     <link rel="stylesheet" href="/templates/css/newstyle.css">
     <link rel="stylesheet" href="/templates/css/icons/font-awesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <link href="/templates/css/tabs.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script src="/templates/js/tabs.js"> </script>
-  </head>
-  <body>
-                <div class="row justify-content-left">
-    {{range $index, $tab :=.Tabs}}
-    <h6>{{$tab.Json}}</h6>
-    <script type="text/javascript">
-        tabs.set({{$tab.Number}}, JSON.parse(`{{$tab.Json}}`));
-    </script>
-    <div name="tab" class="col-lg-3 col-md-12">
-                        <div class="white-box analytics-info">
-                            <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#al-info-alert">
-                              <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
-                                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                            <li>
-                                                <div>
-                                                    <i class="fas fa-3x fa-users" aria-hidden="true"></i>
-                                                </div>
-                                            </li>
-                                            <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
-                                            </li>
-                                        </ul>
-                              </button>
-                        </div>
-                    </div>
-    {{end}}
-                    <div class="col-lg-3 col-md-12">
-                        <div class="white-box analytics-info">
-                            <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#signup-modal1">
-                                    <h3 class="box-title">Adicionar Comanda</h3>
-                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                        <li>
-                                            <div>
-                                                <i class="fas fa-3x fa-plus" aria-hidden="true"></i>
-                                            </div>
-                                        </li>
-                                    </ul>
+</head>
 
+<body onload="initTabsMap()">
+    {{range $index, $tab :=.Tabs}}
+    <div class="row justify-content-left">
+        <script type="text/javascript">
+            function initTabMap(){
+            const tabsd = document.querySelectorAll('div[name="tab"]');
+            tabsd.forEach((tabDiv) => {
+                const a = tabDiv.querySelector('a');
+                const value = a.getAttribute('value');
+                const data = JSON.parse(value);
+                tabs.set(data.number, data);
+                var counter;
+                counter++;
+            });
+        }
+        </script>
+        <!-- <script type="text/javascript">
+            function penis() {
+                let counter = 0;
+                const tabs = document.querySelectorAll('div[name="tab"]');
+                tabs.forEach((tab) => {
+                    counter++;
+                });
+                console.log(counter);
+                for (i = 0; i <= counter; i++) {
+                    tabs.set({{ $tab.Number }}, JSON.parse({{ $tab.Json }}));
+            };
+        }
+        </script> -->
+        <h6>{{$tab.Json}}</h6>
+        <div name="tab" class="col-lg-3 col-md-12">
+            <a type="hidden" value="{{$tab.Json}}"></a>
+            <div class="white-box analytics-info">
+                <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
+                    data-bs-target="#al-info-alert">
+                    <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div>
+                                <i class="fas fa-3x fa-users" aria-hidden="true"></i>
                             </div>
-                        </button>
-                      </div>
-                </div>
-        <!-- modal -->
-        <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog"
-        aria-hidden="true">
+                        </li>
+                        <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
+                        </li>
+                    </ul>
+                </button>
+            </div>
+        </div>
+        {{end}}
+        <div class="col-lg-3 col-md-12">
+            <div class="white-box analytics-info">
+                <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
+                    data-bs-target="#signup-modal1">
+                    <h3 class="box-title">Adicionar Comanda</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div>
+                                <i class="fas fa-3x fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </li>
+                    </ul>
+
+            </div>
+            </button>
+        </div>
+    </div>
+    <!-- modal -->
+    <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -88,30 +118,28 @@
                     <div class="ps-3 pe-3 text-start" action="#">
                         <div class="mb-3">
                             <label for="username">Código Mesa: </label>
-                            <input class="form-control" type="text" id="table"
-                                 placeholder="Mesa 1">
+                            <input class="form-control" type="text" id="table" placeholder="Mesa 1">
                         </div>
                         <div class="mb-3">
                             <label for="emailaddress">Número Comanda</label>
-                            <input class="form-control" type="text" id="number"
-                                placeholder="Comanda 1">
-                            </div>
-                            <div class="mb-3">
-                                <select class="selectpicker" id="mySelect">
-                                  {{range $index, $list :=.ProductsList}}
-                                    {{range $index2, $product :=$list.Products}}
-                                      <option value="{{$product.Name}}">{{$product.Name}}</option>
-                                    {{end}}
-                                  {{end}}
-                                </select>
+                            <input class="form-control" type="text" id="number" placeholder="Comanda 1">
+                        </div>
+                        <div class="mb-3">
+                            <select class="selectpicker" id="mySelect">
+                                {{range $index, $list :=.ProductsList}}
+                                {{range $index2, $product :=$list.Products}}
+                                <option value="{{$product.Name}}">{{$product.Name}}</option>
+                                {{end}}
+                                {{end}}
+                            </select>
 
-                                  <button class="btn btn-primary" onclick="addItem()">Adicionar item</button>
-                                </div>
-                                
-                                <div id="myList">
-                                </div>
-                                 
-                                <div class="mb-3 text-center">
+                            <button class="btn btn-primary" onclick="addItem()">Adicionar item</button>
+                        </div>
+
+                        <div id="myList">
+                        </div>
+
+                        <div class="mb-3 text-center">
                             <button class="btn btn-primary" onclick="makeTabRequest()">Cadastrar Comanda</button>
                         </div>
                     </div>
@@ -120,14 +148,14 @@
         </div>
     </div>
 
-<div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content modal-filled bg-light-info">
-            <div class="modal-header modal-colored-header bg-primary text-white">
-                <h4 class="modal-title" id="primary-header-modalLabel">Informações da X mesa
-                </h4>
+    <div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-filled bg-light-info">
+                <div class="modal-header modal-colored-header bg-primary text-white">
+                    <h4 class="modal-title" id="primary-header-modalLabel">Informações da X mesa
+                    </h4>
                 </div>
-            <div class="modal-body p-4">
+                <div class="modal-body p-4">
                     <i data-feather="info" class="fill-white feather-lg"></i>
                     <div class="mb-3">
                         <label for="mesa">Código Mesa: </label>
@@ -137,29 +165,29 @@
                         <label for="produtos">Produtos: </label>
                         <label for="produtoslista">Carne,Sla </label>
                     </div>
-                    <button type="button" class="btn btn-primary"
-                        data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                </div>
             </div>
         </div>
-      </div>
-  </div>
-  </body>
-    <script>$('select').selectpicker();</script>
-    <script src="/templates/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="/templates/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/templates/js/app-style-switcher.js"></script>
-    <script src="/templates/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!--Wave Effects -->
-    <script src="/templates/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="/templates/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="/templates/js/custom.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="/templates/plugins/bower_components/chartist/dist/chartist.min.js"></script>
-    <script src="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="/templates/js/pages/dashboards/dashboard1.js"></script>
+    </div>
+</body>
+<script>$('select').selectpicker();</script>
+<script src="/templates/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/templates/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/templates/js/app-style-switcher.js"></script>
+<script src="/templates/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+<!--Wave Effects -->
+<script src="/templates/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/templates/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/templates/js/custom.js"></script>
+<!--This page JavaScript -->
+<!--chartis chart-->
+<script src="/templates/plugins/bower_components/chartist/dist/chartist.min.js"></script>
+<script src="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script src="/templates/js/pages/dashboards/dashboard1.js"></script>
+
 </html>
 {{end}}
