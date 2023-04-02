@@ -1,65 +1,64 @@
 {{define "_header"}}
 <header class="topbar" data-navbarbg="skin5">
-    <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-        <div class="navbar-header" data-logobg="skin6">
-            <!-- ============================================================== -->
-            <!-- Logo -->
-            <!-- ============================================================== -->
-            <a class="navbar-brand" href="http://localhost:8081/home">
-                <!-- Logo icon -->
-                <b class="logo-icon">
-                   <!-- Dark Logo icon -->
-                   <i class="fa-2x fab fa-apple text-dark" aria-hidden="true"></i>
-               </b>
-               <!--End Logo icon -->
-               <!-- Logo text -->
-               <span class="logo-text text-dark logo mb-2">
-                   <!-- dark Logo text -->
-                   Restaurant
-               </span>
-            </a>
-            <!-- ============================================================== -->
-            <!-- End Logo -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
-            <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-        </div>
+  <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+    <div class="navbar-header" data-logobg="skin6">
+      <!-- ============================================================== -->
+      <!-- Logo -->
+      <!-- ============================================================== -->
+      <a class="navbar-brand" href="http://localhost:8081/home">
+        <!-- Logo icon -->
+        <b class="logo-icon">
+          <!-- Dark Logo icon -->
+          <i class="fa-2x fab fa-apple text-dark" aria-hidden="true"></i>
+        </b>
+        <!--End Logo icon -->
+        <!-- Logo text -->
+        <span class="logo-text text-dark logo mb-2">
+          <!-- dark Logo text -->
+          Restaurant
+        </span>
+      </a>
+      <!-- ============================================================== -->
+      <!-- End Logo -->
+      <!-- ============================================================== -->
+      <!-- ============================================================== -->
+      <!-- toggle and nav items -->
+      <!-- ============================================================== -->
+      <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="javascript:void(0)"><i
+          class="ti-menu ti-close"></i></a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+      <ul class="navbar-nav d-none d-md-block d-lg-none">
+        <li class="nav-item">
+          <a class="nav-toggler nav-link waves-effect waves-light text-white" href="javascript:void(0)"><i
+              class="ti-menu ti-close"></i></a>
+        </li>
+      </ul>
+      <!-- ============================================================== -->
+      <!-- Right side toggle and nav items -->
+      <!-- ============================================================== -->
+      <ul class="navbar-nav ms-auto d-flex align-items-center">
         <!-- ============================================================== -->
-        <!-- End Logo -->
+        <!-- User profile and search -->
         <!-- ============================================================== -->
-        <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-            <ul class="navbar-nav d-none d-md-block d-lg-none">
-                <li class="nav-item">
-                    <a class="nav-toggler nav-link waves-effect waves-light text-white"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </li>
-            </ul>
-            <!-- ============================================================== -->
-            <!-- Right side toggle and nav items -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav ms-auto d-flex align-items-center">
-                <!-- ============================================================== -->
-                <!-- User profile and search -->
-                <!-- ============================================================== -->
-                <li>
-                    <a class="profile-pic" href="http://localhost:8081/home/user">
-                        <img id="ItemPreview" src="" alt="user-img" width="36"
-                            class="img-circle">
-                        <span class="text-white font-medium">{{.Name}}</span>
-                    </a> 
-                </li>
-                <!-- ============================================================== -->
-                <!-- User profile and search -->
-                <!-- ============================================================== -->
-            </ul>
-        </div>
-    </nav>
-    <script>
-      document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img}};
-    </script> 
+        <li>
+          <a class="profile-pic" href="http://localhost:8081/home/user">
+            <img id="ItemPreview" src="" alt="user-img" width="36" class="img-circle">
+            <span class="text-white font-medium">{{.Name}}</span>
+          </a>
+        </li>
+        <!-- ============================================================== -->
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+      </ul>
+    </div>
+  </nav>
+  <script>
+    document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img}};
+  </script>
 </header>
 
 {{end}}

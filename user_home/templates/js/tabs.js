@@ -21,7 +21,7 @@ function addItem() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function () { increaseCounter(span); };
+  increaseButton.onclick = function() { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -29,13 +29,13 @@ function addItem() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function () { decreaseCounter(span); };
+  decreaseButton.onclick = function() { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function () { removeItem(label, span, br); };
+  removeButton.onclick = function() { removeItem(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -103,9 +103,9 @@ function makeTabRequest() {
   const requests = [];
   labels.forEach((label, index) => {
     const product_name = label.textContent;
-    const quanity = parseInt(spans[index].textContent);
+    const quantity = parseInt(spans[index].textContent);
     // sum += quanity;
-    const request = { product_name: product_name, product_list: product_list, quanity: quanity };
+    const request = { product_name: product_name, product_list: product_list, quantity: quantity };
     requests.push(request);
   });
 
@@ -119,16 +119,16 @@ function makeTabRequest() {
     credentials: 'include',
     body: JSON.stringify(payload)
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Response from server:', data);
-  })
-  .catch(error => {
-    console.error('Error sending data:', error);
-  });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response from server:', data);
+    })
+    .catch(error => {
+      console.error('Error sending data:', error);
+    });
 }
