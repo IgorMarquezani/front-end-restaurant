@@ -96,8 +96,14 @@ function makeTabRequest() {
 
   const labels = Array.from(document.querySelectorAll('#myList label'));
   const spans = Array.from(document.querySelectorAll('#myList span  span.counter'));
-  const number = document.querySelector('#number').value;
-  const table = document.querySelector('#table').value;
+  var number = document.querySelector('#number').value;
+  if (number == null) {
+    number = 0
+  }
+  var table = document.querySelector('#table').value;
+  if (table == null) {
+    table = 0
+  }
   const room = 0;
   const product_list = 0;
   const requests = [];
@@ -105,11 +111,11 @@ function makeTabRequest() {
     const product_name = label.textContent;
     const quantity = parseInt(spans[index].textContent);
     // sum += quanity;
-    const request = { product_name: product_name, product_list: product_list, quantity: quantity };
+    const request = { product_name: product_name, product_list: parseInt(product_list), quantity: parseInt(quantity) };
     requests.push(request);
   });
 
-  const payload = { number: number, room: room, table: table, requests: requests };
+  const payload = { number: 0, room: parseInt(room), table: parseInt(table), requests: requests };
 
   fetch('http://localhost:3300/api/tab/register', {
     method: 'POST',

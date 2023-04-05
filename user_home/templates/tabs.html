@@ -41,7 +41,6 @@
 
 <body onload="initTabsMap()">
   <div class="row justify-content-left">
-  {{range $index, $tab :=.Tabs}}
     <script type="text/javascript">
       function initTabsMap() {
         const tabsd = document.querySelectorAll('div[name="tab"]');
@@ -55,6 +54,7 @@
         });
       }
     </script>
+    {{range $index, $tab :=.Tabs}}
     <!-- <script type="text/javascript">
             function penis() {
                 let counter = 0;
