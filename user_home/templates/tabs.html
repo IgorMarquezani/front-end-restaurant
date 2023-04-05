@@ -41,35 +41,34 @@
 
 <body onload="initTabsMap()">
   <div class="row justify-content-left">
+    {{range $index, $tab :=.Tabs}}
+    <!-- <script type="text/javascript">
+      function penis() {
+        let counter = 0;
+        const tabs = document.querySelectorAll('div[name="tab"]');
+        tabs.forEach((tab) => {
+          counter++;
+        });
+        console.log(counter);
+        for (i = 0; i <= counter; i++) {
+          tabs.set({{ $tab.Number }}, JSON.parse({{ $tab.Json }}));
+        };
+      }
+    </script> -->
     <script type="text/javascript">
+      window.addEventListener('load', myFunction);
       function initTabsMap() {
         const tabsd = document.querySelectorAll('div[name="tab"]');
         tabsd.forEach((tabDiv) => {
-          const a = tabDiv.querySelector('a');
+          const a = tabDiv.querySelector('a#tab');
           const value = a.getAttribute('value');
           const data = JSON.parse(value);
           tabs.set(data.number, data);
-          var counter;
-          counter++;
         });
       }
     </script>
-    {{range $index, $tab :=.Tabs}}
-    <!-- <script type="text/javascript">
-            function penis() {
-                let counter = 0;
-                const tabs = document.querySelectorAll('div[name="tab"]');
-                tabs.forEach((tab) => {
-                    counter++;
-                });
-                console.log(counter);
-                for (i = 0; i <= counter; i++) {
-                    tabs.set({{ $tab.Number }}, JSON.parse({{ $tab.Json }}));
-            };
-        }
-        </script> -->
     <div name="tab" class="col-lg-3 col-md-12">
-      <a type="hidden" value="{{$tab.Json}}"></a>
+      <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
       <div class="white-box analytics-info">
         <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
           data-bs-target="#al-info-alert">
