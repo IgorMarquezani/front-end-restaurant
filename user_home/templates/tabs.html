@@ -67,22 +67,24 @@
         });
       }
     </script>
-    <div name="tab" class="col-lg-3 col-md-12">
-      <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
-      <div class="white-box analytics-info">
-        <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
-          data-bs-target="#al-info-alert">
-          <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
-          <ul class="list-inline two-part d-flex align-items-center mb-0">
-            <li>
-              <div>
-                <i class="fas fa-3x fa-users" aria-hidden="true"></i>
-              </div>
-            </li>
-            <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
-            </li>
-          </ul>
-        </button>
+    <div name="{{$tab.Number}}T">
+      <div name="tab" class="col-lg-3 col-md-12">
+        <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
+        <div class="white-box analytics-info">
+          <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
+            data-bs-target="#al-info-alert">
+            <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+              <li>
+                <div>
+                  <i class="fas fa-3x fa-users" aria-hidden="true"></i>
+                </div>
+              </li>
+              <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
+              </li>
+            </ul>
+          </button>
+        </div>
       </div>
     </div>
     {{end}}
