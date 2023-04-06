@@ -40,6 +40,18 @@
 </head>
 
 <body onload="initTabsMap()">
+  <script type="text/javascript">
+    window.addEventListener('load', initTabsMap());
+      function initTabsMap() {
+        const tabsd = document.querySelectorAll('div[name="tab"]');
+        tabsd.forEach((tabDiv) => {
+          const a = tabDiv.querySelector('a#tabValue');
+          const value = a.getAttribute('value');
+          const data = JSON.parse(value);
+          tabs.set(data.number, data);
+        });
+      }
+  </script>
   <div class="row justify-content-left">
     {{range $index, $tab :=.Tabs}}
     <!-- <script type="text/javascript">
@@ -55,37 +67,25 @@
         };
       }
     </script> -->
-    <script type="text/javascript">
-      window.addEventListener('load', myFunction);
-      function initTabsMap() {
-        const tabsd = document.querySelectorAll('div[name="tab"]');
-        tabsd.forEach((tabDiv) => {
-          const a = tabDiv.querySelector('a#tab');
-          const value = a.getAttribute('value');
-          const data = JSON.parse(value);
-          tabs.set(data.number, data);
-        });
-      }
-    </script>
-      <div name="tab" class="col-lg-3 col-md-12">
-        <a value="{{$tab.Number}}T"> </a>
-        <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
-        <div class="white-box analytics-info">
-          <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" onclick="openTabModal(`{{$tab.Number}}`)"
-            data-bs-target="#al-info-alert">
-            <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-              <li>
-                <div>
-                  <i class="fas fa-3x fa-users" aria-hidden="true"></i>
-                </div>
-              </li>
-              <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
-              </li>
-            </ul>
-          </button>
-        </div>
+    <div name="tab" class="col-lg-3 col-md-12">
+      <a value="{{$tab.Number}}T"> </a>
+      <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
+      <div class="white-box analytics-info">
+        <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
+          onclick="openTabModal(`{{$tab.Number}}`)" data-bs-target="#al-info-alert">
+          <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
+          <ul class="list-inline two-part d-flex align-items-center mb-0">
+            <li>
+              <div>
+                <i class="fas fa-3x fa-users" aria-hidden="true"></i>
+              </div>
+            </li>
+            <li class="ms-auto"><span class="counter text-dark">R$ {{$tab.PayValue}}</span>
+            </li>
+          </ul>
+        </button>
       </div>
+    </div>
     {{end}}
     <div class="col-lg-3 col-md-12">
       <div class="white-box analytics-info">
