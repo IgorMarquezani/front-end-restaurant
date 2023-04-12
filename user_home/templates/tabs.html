@@ -39,40 +39,31 @@
   <script src="/templates/js/tabs.js"> </script>
 </head>
 
-<body onload="initTabsMap()">
+<body>
   <script type="text/javascript">
-    window.addEventListener('load', initTabsMap());
+    let tabs = [];
+    $(document).ready(function() {
+    initTabsMap();
+  });
       function initTabsMap() {
         const tabsd = document.querySelectorAll('div[name="tab"]');
         tabsd.forEach((tabDiv) => {
           const a = tabDiv.querySelector('a#tabValue');
           const value = a.getAttribute('value');
           const data = JSON.parse(value);
-          tabs.set(data.number, data);
+          tabs.push(data);
         });
+        console.log ('aqui', tabs)
       }
   </script>
-  <div class="row justify-content-left">
+  <div class="row justify-content-left"> 
     {{range $index, $tab :=.Tabs}}
-    <!-- <script type="text/javascript">
-      function penis() {
-        let counter = 0;
-        const tabs = document.querySelectorAll('div[name="tab"]');
-        tabs.forEach((tab) => {
-          counter++;
-        });
-        console.log(counter);
-        for (i = 0; i <= counter; i++) {
-          tabs.set({{ $tab.Number }}, JSON.parse({{ $tab.Json }}));
-        };
-      }
-    </script> -->
     <div name="tab" class="col-lg-3 col-md-12">
-      <a value="{{$tab.Number}}T"> </a>
+      <a id="tabnumber" value="{{$tab.Number}}T"> </a>
       <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
       <div class="white-box analytics-info">
         <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
-          onclick="openTabModal(`{{$tab.Number}}`)" data-bs-target="#al-info-alert">
+          onclick="openTabModal()" data-bs-target="#al-info-alert">
           <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
           <ul class="list-inline two-part d-flex align-items-center mb-0">
             <li>
@@ -130,8 +121,7 @@
                 {{end}}
                 {{end}}
               </select>
-
-              <button class="btn btn-primary" onclick="addItem()">Adicionar item</button>
+              <button id="butaoadd" class="btn btn-primary" onclick="addItem()">Adicionar item</button>
             </div>
 
             <div id="myList"></div>
@@ -154,14 +144,11 @@
         <div class="modal-body p-4">
           <i data-feather="info" class="fill-white feather-lg"></i>
           <div class="mb-3">
-            <label for="mesa">Código Mesa: </label>
-            <label for="mesacodigo">Teste</label>
           </div>
           <div class="mb-3">
-            <label for="produtos">Produtos: </label>
-            <label for="produtoslista">Carne,Sla </label>
+            <label id="mesacodigo">Teste</label>
           </div>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+          <button id="fecha" onclick="removeLabels()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>

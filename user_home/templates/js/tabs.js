@@ -1,6 +1,56 @@
-var itemCount = 0;
+function openTabModal() {
+  const tabDiv = event.currentTarget.closest('div[name="tab"]');
+  const a = tabDiv.querySelector('a#tabValue');
+  const value = a.getAttribute('value');
+  const data = JSON.parse(value);
+  const productNumber = data.number;
 
-function addItem() {
+  // Acessa o array de requests e percorre seus itens
+  const modalLabel2 = document.querySelector('#mesacodigo');
+  modalLabel2.textContent = `Codigo da mesa: ${productNumber}`;
+  data.requests.forEach(request => {
+    const productName = request.product_name;
+    const productQuantity = request.quantity;
+
+    // Cria uma label para cada item de request
+    const modalLabel = document.createElement('label');
+    modalLabel.textContent = `Product: ${productName}, Quantity: ${productQuantity}`;
+    modalLabel.setAttribute('for', `product_${productNumber}`);
+    
+    // Encontra a div "mb-3" dentro do modal "al-info-alert"
+    const divMb3 = document.getElementById('al-info-alert').querySelector('.mb-3');
+
+    // Adiciona a label à div "mb-3" encontrada
+    divMb3.appendChild(modalLabel);
+  });
+}
+  // Use os valores obtidos para exibir as informações no modal
+  function removeLabels() {
+    // Encontra a div "mb-3" dentro do modal "al-info-alert"
+    const divMb3 = document.getElementById('al-info-alert').querySelector('.mb-3');
+    
+    // Remove todos os elementos filhos (labels) da div "mb-3"
+    while (divMb3.firstChild) {
+      divMb3.removeChild(divMb3.firstChild);
+    }
+  }
+  document.addEventListener('click', function(event) {
+    // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
+    $(window).on('hidden.bs.modal', function() { 
+      $('#code').modal('hide');
+      removeLabels();
+  });
+  });
+  // document.addEventListener('click', function (event) {
+  //   // Verifica se o alvo do evento de clique está fora do modal
+  //   if (!event.target.closest('.modal')) {
+  //     // Chama a função para remover as labels quando o clique é fora do modal
+  //     console.log('aqui')
+  //     removeLabels();
+  //   }
+  // });
+  function addItem() {
+  var itemCount = 0;
   // Seleciona o elemento <select>
   var select = document.getElementById("mySelect");
 
@@ -21,7 +71,7 @@ function addItem() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function() { increaseCounter(span); };
+  increaseButton.onclick = function () { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -29,13 +79,13 @@ function addItem() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function() { decreaseCounter(span); };
+  decreaseButton.onclick = function () { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem(label, span, br); };
+  removeButton.onclick = function () { removeItem(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -86,12 +136,9 @@ function removeItem(label, span, br) {
   itemCount--;
 }
 
-const tabs = new Map();
-
 function addTabToMap(index, tab) {
   tabs.set(index, JSON.stringify(tab));
 }
-
 function makeTabRequest() {
 
   const labels = Array.from(document.querySelectorAll('#myList label'));
@@ -117,6 +164,32 @@ function makeTabRequest() {
 
   const payload = { number: 0, room: parseInt(room), table: parseInt(table), requests: requests };
 
+  fetch('http://localhost:3300/api/tab/register', {
+    method: 'POST',
+    headers: {
+      "Accept": "*/*",
+    },
+    credentials: 'include',
+    body: JSON.stringify(payload)
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response from server:', data);
+    })
+    .catch(error => {
+      console.error('Error sending data:', error);
+    });
+}
+function invitebyId() {
+  var convidado = document.querySelector('#convidado').value;
+  if (convidado == null) {
+    alert("Insira o id do convidado !");
+  }
   fetch('http://localhost:3300/api/tab/register', {
     method: 'POST',
     headers: {
