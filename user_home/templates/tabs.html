@@ -42,28 +42,28 @@
 <body>
   <script type="text/javascript">
     let tabs = [];
-    $(document).ready(function() {
-    initTabsMap();
-  });
-      function initTabsMap() {
-        const tabsd = document.querySelectorAll('div[name="tab"]');
-        tabsd.forEach((tabDiv) => {
-          const a = tabDiv.querySelector('a#tabValue');
-          const value = a.getAttribute('value');
-          const data = JSON.parse(value);
-          tabs.push(data);
-        });
-        console.log ('aqui', tabs)
-      }
+    $(document).ready(function () {
+      initTabsMap();
+    });
+    function initTabsMap() {
+      const tabsd = document.querySelectorAll('div[name="tab"]');
+      tabsd.forEach((tabDiv) => {
+        const a = tabDiv.querySelector('a#tabValue');
+        const value = a.getAttribute('value');
+        const data = JSON.parse(value);
+        tabs.push(data);
+      });
+      console.log('aqui', tabs)
+    }
   </script>
-  <div class="row justify-content-left"> 
+  <div class="row justify-content-left">
     {{range $index, $tab :=.Tabs}}
     <div name="tab" class="col-lg-3 col-md-12">
       <a id="tabnumber" value="{{$tab.Number}}T"> </a>
       <a id="tabValue" type="hidden" value="{{$tab.Json}}"></a>
       <div class="white-box analytics-info">
-        <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
-          onclick="openTabModal()" data-bs-target="#al-info-alert">
+        <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" onclick="openTabModal()"
+          data-bs-target="#al-info-alert">
           <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
           <ul class="list-inline two-part d-flex align-items-center mb-0">
             <li>
@@ -75,6 +75,18 @@
             </li>
           </ul>
         </button>
+        <br>
+        <ul class="list-inline two-part d-flex align-items-center mb-0">
+          <button class="btn btn-primary" id="editButton" data-bs-toggle="modal"
+          data-bs-target="#edit-modal" onclick="showProductInfo()">
+            Edit
+          </button>
+  
+          <!-- Button with trash icon -->
+          <button class="btn btn-danger" id="deleteButton" onclick="deleteTab()">
+            Delete
+          </button>
+        </ul>
       </div>
     </div>
     {{end}}
@@ -94,7 +106,7 @@
       </button>
     </div>
   </div>
-  <!-- modal -->
+  <!-- modal de cadastro -->
   <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -135,6 +147,43 @@
     </div>
   </div>
 
+<!-- modal de edição de comanda -->
+  <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Editar Comanda</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="username">Código Mesa: </label>
+              <input class="form-control" type="text" id="table" placeholder="Mesa 1">
+              <label for="emailaddress">Número Comanda</label>
+              <input class="form-control" type="text" id="numberc" disabled>
+            </div>
+            <div class="mb-3">
+              <select class="selectpicker" id="mySelect2">
+                {{range $index, $list :=.ProductsList}}
+                {{range $index2, $product :=$list.Products}}
+                <option value="{{$product.Name}}">{{$product.Name}}</option>
+                {{end}}
+                {{end}}
+              </select>
+              <button id="butaoadd2" class="btn btn-primary" onclick="addItem2()">Adicionar item</button>
+            </div>
+
+            <div id="myList2"></div>
+
+            <div class="mb-3 text-center">
+              <button class="btn btn-primary" onclick="updateTabNumber()">Editar Comanda</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- modal das comandas -->
   <div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content modal-filled bg-light-info">
@@ -148,7 +197,8 @@
           <div class="mb-3">
             <label id="mesacodigo">Teste</label>
           </div>
-          <button id="fecha" onclick="removeLabels()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+          <button id="fecha" onclick="removeLabels()" type="button" class="btn btn-primary"
+            data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
