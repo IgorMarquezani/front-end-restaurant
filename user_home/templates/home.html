@@ -83,11 +83,16 @@
                   onclick="updateActiveRoom('{{$room.Id}}')">{{$room.Id}}</a>
               </td>
               {{end}}
+
             </table>
           </div>
+          <button class="bell-button" padding-left="50px"><i class="fa fa-bell"></i></button>
+          <button class="person-button" data-bs-toggle="modal" data-bs-target="#penis">
+            <i class="fa fa-plus"></i>
+          </button>
         </div>
-        <!-- /.col-lg-12 -->
       </div>
+      <!-- /.col-lg-12 -->
       <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -100,6 +105,27 @@
       </div>
     </div>
 
+    <div id="penis" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="text-center mt-2 mb-4">
+              <label>Sua id: {{.Room.Id}}</label>
+            </div>
+              <div class="mb-3">
+                <label for="username">Id do Convidado: </label>
+                <input class="form-control" type="email" id="convidado" required="" placeholder="Id do convidado">
+              </div>
+              <div class="mb-3 text-center">
+                <button class="btn btn-primary" type="submit" onclick="invitebyId()">Convidar</button>
+            </div>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
   </div>
   <footer class="footer text-center">
     2022 © Fatec Ourinhos
