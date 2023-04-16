@@ -23,10 +23,10 @@ func (lf *loginForm) AllLoginFormValues(c echo.Context) {
 }
 
 func Login(c echo.Context) error {
-  var (
-    lf   loginForm
-    user models.User
-  )
+	var (
+		lf   loginForm
+		user models.User
+	)
 
 	if c.Request().Method != "POST" {
 		c.Render(http.StatusOK, "Login", nil)
@@ -41,11 +41,11 @@ func Login(c echo.Context) error {
 		return nil
 	}
 
-	user.Email =  lf.Email
+	user.Email = lf.Email
 	user.Passwd = lf.Passwd
 
 	if err := models.LoginUserRequest(&c.Response().Writer, user); err != nil {
-		lf.Err = "Email not registered or passwd not compatible"
+		lf.Err = "Wrong pasword or e-mail"
 		c.Render(http.StatusBadRequest, "Login", lf)
 		return nil
 	}

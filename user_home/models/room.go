@@ -3,7 +3,6 @@ package models
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -26,22 +25,26 @@ func FullRoomInfo(c echo.Context) (Room, int) {
   var room Room
 
 	request, err := http.NewRequest("GET", roomInfoURL + c.QueryParam("id"), bytes.NewBuffer(make([]byte, 1)))
+  if err != nil {
+    panic(err)
+  }
+  defer request.Body.Close()
 
 	cookie, err := c.Cookie("_SecurePS")
 	if err != nil {
-		fmt.Println(err)
+    return room, http.StatusUnauthorized
 	}
 
 	request.AddCookie(cookie)
 
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
-		panic(err)
+    panic(err)
 	}
+  defer response.Body.Close()
 
 	if response.StatusCode == http.StatusOK {
 		json.NewDecoder(response.Body).Decode(&room)
-		fmt.Println(room)
 	}
 
 	return room, response.StatusCode

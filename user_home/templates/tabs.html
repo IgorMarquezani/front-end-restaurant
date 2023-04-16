@@ -64,7 +64,7 @@
       <div class="white-box analytics-info">
         <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" onclick="openTabModal()"
           data-bs-target="#al-info-alert">
-          <h3 class="box-title">Comanda: {{$tab.Number}}</h3>
+          <h3 class="box-title">Tab: {{$tab.Number}}</h3>
           <ul class="list-inline two-part d-flex align-items-center mb-0">
             <li>
               <div>
@@ -77,11 +77,11 @@
         </button>
         <br>
         <ul class="list-inline two-part d-flex align-items-center mb-0">
-          <button class="btn btn-primary" id="editButton" data-bs-toggle="modal"
-          data-bs-target="#edit-modal" onclick="showProductInfo()">
+          <button class="btn btn-primary" id="editButton" data-bs-toggle="modal" data-bs-target="#edit-modal"
+            onclick="showProductInfo()">
             Edit
           </button>
-  
+
           <!-- Button with trash icon -->
           <button class="btn btn-danger" id="deleteButton" onclick="deleteTab()">
             Delete
@@ -94,7 +94,7 @@
       <div class="white-box analytics-info">
         <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal"
           data-bs-target="#signup-modal1">
-          <h3 class="box-title">Adicionar Comanda</h3>
+          <h3 class="box-title">Add Tab</h3>
           <ul class="list-inline two-part d-flex align-items-center mb-0">
             <li>
               <div>
@@ -111,35 +111,39 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Cadastro de Comanda</h4>
+          <h4 class="modal-title" id="myModalLabel">Tab Register</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 
           <div class="ps-3 pe-3 text-start" action="#">
             <div class="mb-3">
-              <label for="username">Código Mesa: </label>
+              <label for="username">Table Number:</label>
               <input class="form-control" type="text" id="table" placeholder="Mesa 1">
             </div>
             <div class="mb-3">
-              <label for="emailaddress">Número Comanda</label>
+              <label for="emailaddress">Tab Number:</label>
               <input class="form-control" type="text" id="number" placeholder="Comanda 1">
             </div>
-            <div class="mb-3">
-              <select class="selectpicker" id="mySelect">
-                {{range $index, $list :=.ProductsList}}
-                {{range $index2, $product :=$list.Products}}
-                <option value="{{$product.Name}}">{{$product.Name}}</option>
-                {{end}}
-                {{end}}
-              </select>
-              <button id="butaoadd" class="btn btn-primary" onclick="addItem()">Adicionar item</button>
+            <div class="row">
+              <div class="col-md-6">
+                <select class="selectpicker" id="mySelect">
+                  {{range $index, $list :=.ProductsList}}
+                  {{range $index2, $product :=$list.Products}}
+                  <option value="{{$product.Name}}">{{$product.Name}}</option>
+                  {{end}}
+                  {{end}}
+                </select>
+              </div>
+              <div class="col-md-6 d-flex justify-content-end">
+                <button id="butaoadd" class="btn btn-primary" onclick="addItem()">Add Item</button>
+              </div>
             </div>
 
             <div id="myList"></div>
 
-            <div class="mb-3 text-center">
-              <button class="btn btn-primary" onclick="makeTabRequest()">Cadastrar Comanda</button>
+            <div class="mb-6 text-center mt-3">
+              <button class="btn btn-primary" onclick="makeTabRequest()">Register Tab</button>
             </div>
           </div>
         </div>
@@ -147,58 +151,58 @@
     </div>
   </div>
 
-<!-- modal de edição de comanda -->
+  <!-- modal de edição de comanda -->
   <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Editar Comanda</h4>
+          <h4 class="modal-title" id="myModalLabel">Edit Tab</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="mb-3">
-              <label for="username">Código Mesa: </label>
-              <input class="form-control" type="text" id="table" placeholder="Mesa 1">
-              <label for="emailaddress">Número Comanda</label>
-              <input class="form-control" type="text" id="numberc" disabled>
-            </div>
-            <div class="mb-3">
-              <select class="selectpicker" id="mySelect2">
-                {{range $index, $list :=.ProductsList}}
-                {{range $index2, $product :=$list.Products}}
-                <option value="{{$product.Name}}">{{$product.Name}}</option>
-                {{end}}
-                {{end}}
-              </select>
-              <button id="butaoadd2" class="btn btn-primary" onclick="addItem2()">Adicionar item</button>
-            </div>
+          <div class="mb-3">
+            <label for="username">Table Number: </label>
+            <input class="form-control" type="text" id="table" placeholder="Mesa 1">
+            <label for="emailaddress">Tab Number:</label>
+            <input class="form-control" type="text" id="numberc" disabled>
+          </div>
+          <div class="mb-3">
+            <select class="selectpicker" id="mySelect2">
+              {{range $index, $list :=.ProductsList}}
+              {{range $index2, $product :=$list.Products}}
+              <option value="{{$product.Name}}">{{$product.Name}}</option>
+              {{end}}
+              {{end}}
+            </select>
+            <button id="butaoadd2" class="btn btn-primary" onclick="addItem2()">Add Item</button>
+          </div>
 
-            <div id="myList2"></div>
+          <div id="myList2"></div>
 
-            <div class="mb-3 text-center">
-              <button class="btn btn-primary" onclick="updateTabNumber()">Editar Comanda</button>
-            </div>
+          <div class="mb-3 text-center">
+            <button class="btn btn-primary" onclick="updateTabNumber()">Edit Tab</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-<!-- modal das comandas -->
+  </div>
+  <!-- modal das comandas -->
   <div class="modal fade" id="al-info-alert" tabindex="-1" aria-labelledby="vertical-center-modal" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content modal-filled bg-light-info">
         <div class="modal-header modal-colored-header bg-primary text-white">
-          <h4 class="modal-title" id="primary-header-modalLabel">Informações da X mesa</h4>
+          <h4 class="modal-title" id="primary-header-modalLabel">Tab Information</h4>
         </div>
         <div class="modal-body p-4">
           <i data-feather="info" class="fill-white feather-lg"></i>
           <div class="mb-3">
           </div>
           <div class="mb-3">
-            <label id="mesacodigo">Teste</label>
+            <label id="mesacodigo">Test</label>
           </div>
           <button id="fecha" onclick="removeLabels()" type="button" class="btn btn-primary"
-            data-bs-dismiss="modal">Fechar</button>
+            data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

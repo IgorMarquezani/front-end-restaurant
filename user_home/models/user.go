@@ -15,6 +15,7 @@ type User struct {
 	Img    []byte `json:"img"`
 
 	Room         Room
+	ActiveRoom   int
 	RoomsAsGuest []Room
 	Invites      []Invite
 }
@@ -23,14 +24,15 @@ const (
 	userInfoURL string = "http://localhost:3300/api/user/full-info"
 )
 
-func MustFullUserInfo (c echo.Context) (User, int) {
-  var user User
+func MustFullUserInfo(c echo.Context) (User, int) {
+	var user User
 
 	request, err := http.NewRequest("POST", userInfoURL, bytes.NewBuffer(make([]byte, 0)))
+	defer request.Body.Close()
 
 	cookie, err := c.Cookie("_SecurePS")
 	if err != nil {
-		panic(err)
+		return user, http.StatusUnauthorized
 	}
 
 	request.AddCookie(cookie)
@@ -39,8 +41,11 @@ func MustFullUserInfo (c echo.Context) (User, int) {
 	if err != nil {
 		panic(err)
 	}
+	defer response.Body.Close()
 
-	json.NewDecoder(response.Body).Decode(&user)
-  return user, response.StatusCode
+	if response.StatusCode == http.StatusOK {
+		json.NewDecoder(response.Body).Decode(&user)
+	}
+
+	return user, response.StatusCode
 }
-

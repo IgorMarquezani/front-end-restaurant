@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/frontend/models"
@@ -12,13 +11,15 @@ func Tabs(c echo.Context) error {
 	room, status := models.FullRoomInfo(c)
 
 	if status == http.StatusOK {
-		log.Println(room)
-    for i := range room.Tabs {
-      room.Tabs[i].Json = room.Tabs[i].ToJson()
-    }
-		err := c.Render(http.StatusOK, "TabsIframe", room)
-		log.Println(err)
+		for i := range room.Tabs {
+			room.Tabs[i].Json = room.Tabs[i].ToJson()
+		}
+		return c.Render(http.StatusOK, "TabsIframe", room)
 	}
 
-	return nil
+	if status == http.StatusUnauthorized {
+		return c.Render(http.StatusUnauthorized, "NotLogged", nil)
+	}
+
+	return c.Render(http.StatusInternalServerError, "InternalServerError", nil)
 }

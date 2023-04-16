@@ -16,7 +16,7 @@
   <meta name="description"
     content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
   <meta name="robots" content="noindex,nofollow">
-  <title>Restaurante</title>
+  <title>Restaurant</title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="/templates/plugins/images/favicon.png">
@@ -37,6 +37,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
   <script src="/templates/js/rooms.js"></script>
+  <script src="/templates/js/invites.js"></script>
 </head>
 
 <body>
@@ -69,7 +70,7 @@
           <div class="col-lg-0 col-md-4 col-sm-4 col-xs-12">
             <table>
               <td padding-right="2px">
-                <h4 class="page-title">Salas:</h4>
+                <h4 class="page-title">Rooms:</h4>
               </td>
               <td padding-right="2px">
                 <a href="http://localhost:8081/room?id={{.Room.Id}}" target="tabs-iframe" name="room-{{.Room.Id}}"
@@ -83,25 +84,34 @@
                   onclick="updateActiveRoom('{{$room.Id}}')">{{$room.Id}}</a>
               </td>
               {{end}}
-
+              <td>
+                <div>
+                  <button class="bell-button" padding="40px">
+                    <i class="fa fa-bell"></i>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <button class="person-button" data-bs-toggle="modal" data-bs-target="#penis">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </td>
             </table>
           </div>
-          <button class="bell-button" padding-left="50px"><i class="fa fa-bell"></i></button>
-          <button class="person-button" data-bs-toggle="modal" data-bs-target="#penis">
-            <i class="fa fa-plus"></i>
-          </button>
         </div>
       </div>
       <!-- /.col-lg-12 -->
       <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title">Comandas:</h4>
+            <h4 class="page-title">Tabs:</h4>
           </div>
         </div>
       </div>
       <div class="myIframe">
-        <iframe name="tabs-iframe" src="http://localhost:8081/room?id={{.Room.Id}}" width="100%" height="100%"></iframe>
+        <iframe name="tabs-iframe" src="http://localhost:8081/room?id={{.ActiveRoom}}" width="100%" height="100%"></iframe>
       </div>
     </div>
 
@@ -110,14 +120,21 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="text-center mt-2 mb-4">
-              <label>Sua id: {{.Room.Id}}</label>
+              <label>E-mail of the user to be invite</label>
             </div>
-              <div class="mb-3">
-                <label for="username">Id do Convidado: </label>
-                <input class="form-control" type="email" id="convidado" required="" placeholder="Id do convidado">
-              </div>
-              <div class="mb-3 text-center">
-                <button class="btn btn-primary" type="submit" onclick="invitebyId()">Convidar</button>
+            <div class="mb-3">
+              <label for="username">User E-mail: </label>
+              <input class="form-control" type="email" id="convidado" required="" placeholder="">
+            </div>
+            <div class="mb-3">
+              <select id="permissionDropdown">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="mb-3 text-center">
+              <button class="btn btn-primary" type="submit" onclick="sendInvite()">Invite</button>
             </div>
           </div>
         </div>
@@ -162,12 +179,12 @@
     src="/templates/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
   <script src="/templates/js/pages/dashboards/dashboard1.js"></script>
   <!-- <script> -->
-  <!--   let socket = new WebSocket('ws://localhost:8000/home/tabs') -->
-  <!--   socket.onopen = () => socket.send('hello') -->
-  <!--   // socket.onopen = (event) => console.log('WebSocket Created') -->
-  <!--   socket.onmessage = (msg) => console.message('Message:', msg) -->
-  <!--   socket.onerror = (error) => console.error('Web Socket Error:', error) -->
-  <!--   socket.onclose = (event) => console.log('Disconnected') -->
+    <!-- let socket = new WebSocket('ws://localhost:8000/home/tabs') -->
+    <!-- socket.onopen = () => socket.send('hello') -->
+    <!-- // socket.onopen = (event) => console.log('WebSocket Created') -->
+    <!-- socket.onmessage = (msg) => console.message('Message:', msg) -->
+    <!-- socket.onerror = (error) => console.error('Web Socket Error:', error) -->
+    <!-- socket.onclose = (event) => console.log('Disconnected') -->
   <!-- </script> -->
   <script src="/templates/js/tabs.js"> </script>
 </body>

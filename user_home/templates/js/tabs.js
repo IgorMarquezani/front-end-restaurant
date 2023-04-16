@@ -34,9 +34,9 @@ function removeLabels() {
     divMb3.removeChild(divMb3.firstChild);
   }
 }
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function () {
+  $(window).on('hidden.bs.modal', function() {
     $('#code').modal('hide');
     removeLabels();
   });
@@ -71,7 +71,7 @@ function addItem() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function () { increaseCounter(span); };
+  increaseButton.onclick = function() { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -79,13 +79,13 @@ function addItem() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function () { decreaseCounter(span); };
+  decreaseButton.onclick = function() { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function () { removeItem(label, span, br); };
+  removeButton.onclick = function() { removeItem(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -130,7 +130,7 @@ function addItem2() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function () { increaseCounter(span); };
+  increaseButton.onclick = function() { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -138,13 +138,13 @@ function addItem2() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function () { decreaseCounter(span); };
+  decreaseButton.onclick = function() { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function () { removeItem2(label, span, br); };
+  removeButton.onclick = function() { removeItem2(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -289,7 +289,7 @@ function invitebyEmail() {
       "Accept": "*/*",
     },
     credentials: 'include',
-    body: JSON.stringify(payload)
+    body: JSON.stringify(convidado)
   })
     .then(response => {
       if (!response.ok) {
@@ -334,7 +334,7 @@ function showProductInfo() {
     increaseButton.innerText = "+";
     increaseButton.style.marginRight = "10px";
     increaseButton.style.marginLeft = "10px";
-    increaseButton.onclick = function () { increaseCounter2(span); };
+    increaseButton.onclick = function() { increaseCounter2(span); };
 
     // Cria um botão "diminuir" para o contador
     var decreaseButton = document.createElement("button");
@@ -342,13 +342,13 @@ function showProductInfo() {
     decreaseButton.innerText = "-";
     decreaseButton.style.marginRight = "10px";
     decreaseButton.style.marginLeft = "10px";
-    decreaseButton.onclick = function () { decreaseCounter2(span); };
+    decreaseButton.onclick = function() { decreaseCounter2(span); };
 
     // Cria um botão "remover" para o item
     var removeButton = document.createElement("button");
     removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     removeButton.innerText = "Remover";
-    removeButton.onclick = function () { removeItem2(label, span, br); };
+    removeButton.onclick = function() { removeItem2(label, span, br); };
 
     // Cria um contador para o item
     var counter = document.createElement("span");
@@ -390,9 +390,9 @@ function showProductInfo() {
 
   });
 }
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function () {
+  $(window).on('hidden.bs.modal', function() {
     $('#code').modal('hide');
     removeItem3();
   });
@@ -419,60 +419,61 @@ function updateTabNumber() {
   // Loop através de cada div "mylist2"
   labels.forEach((label, index) => {
     const product_name = label.textContent;
-    
+
     const quantity = parseInt(spans[index].textContent);
     // sum += quanity;
     const request = { product_name: product_name, product_list: parseInt(product_list), quantity: parseInt(quantity) };
     requests.push(request);
   });
   const payload = { number: number, room: parseInt(room), table: parseInt(table), requests: requests };
-  
+
   console.log(payload)
   // Faz uma requisição PUT para o endpoint http://localhost:3300/api/tab/update/number
   fetch(`http://localhost:3300/api/tab/update/${number}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      "Accept": "*/*",
     },
+    credentials: 'include',
     body: JSON.stringify(requests)
   })
-  .then(response => {
-    if (response.ok) {
-      console.log('Atualização bem-sucedida');
-    } else {
-      console.error('Erro ao atualizar');
-    }
-  })
-  .catch(error => {
-    console.error('Erro ao atualizar:', error);
-  });
+    .then(response => {
+      if (response.ok) {
+        console.log('Atualização bem-sucedida');
+      } else {
+        console.error('Erro ao atualizar');
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao atualizar:', error);
+    });
 }
 
 function deleteTab() {
-
-  var itemCount = 0;
   const tabDiv = event.currentTarget.closest('div[name="tab"]');
   const a = tabDiv.querySelector('a#tabValue');
   const value = a.getAttribute('value');
   const data = JSON.parse(value);
   const productNumber = data.number;
 
-  console.log(productNumber)
+  console.log(productNumber),
   fetch(`http://localhost:3300/api/tab/delete/${productNumber}`, {
-    method: 'DELETE',
+    method: 'delete',
     headers: {
-      'Content-Type': 'application/json'
-    }
+      "Accept": "*/*",
+      "Content-Type" :'application/json',
+    },
+    credentials: 'include',
   })
-  .then(response => {
-    if (response.ok) {
-      console.log('Exclusão bem-sucedida');
-    } else {
-      console.error('Erro ao excluir');
-    }
-  })
-  .catch(error => {
-    console.error('Erro ao excluir:', error);
-  });
-  
+    .then(response => {
+      if (response.ok) {
+        console.log('Exclusão bem-sucedida');
+      } else {
+        console.error('Erro ao excluir');
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao excluir:', error);
+    });
+
 }

@@ -27,6 +27,7 @@ func NewUserRequest(user UserRegister) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+  defer request.Body.Close()
 
 	request.Header.Set("Content-Type", "application/json")
 
@@ -34,6 +35,7 @@ func NewUserRequest(user UserRegister) (int, error) {
 	if err != nil {
 		return response.StatusCode, err
 	}
+  response.Body.Close()
 
 	if response.StatusCode == http.StatusCreated {
 		return response.StatusCode, nil
@@ -50,6 +52,7 @@ func LoginUserRequest(w *http.ResponseWriter, user User) error {
 	if err != nil {
 		return err
 	}
+  defer request.Body.Close()
 
 	request.Header.Set("Content-Type", "application/json")
 
@@ -57,6 +60,7 @@ func LoginUserRequest(w *http.ResponseWriter, user User) error {
 	if err != nil {
 		return err
 	}
+  defer response.Body.Close()
 
 	if response.StatusCode == http.StatusAccepted {
 		session := response.Cookies()[0]

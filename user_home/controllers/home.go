@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/frontend/models"
@@ -9,14 +8,15 @@ import (
 )
 
 func Home(c echo.Context) error {
-  user, status := models.MustFullUserInfo(c)
+	user, status := models.MustFullUserInfo(c)
 
-  if status == http.StatusOK {
-		fmt.Println(user)
-		err := c.Render(http.StatusOK, "Home", user)
-		fmt.Println(err)
-		return nil
+	if status == http.StatusOK {
+		return c.Render(http.StatusOK, "Home", user)
 	}
 
-	return nil
+	if status == http.StatusUnauthorized {
+		return c.Render(http.StatusUnauthorized, "NotLogged", nil)
+	}
+
+	return c.Render(http.StatusInternalServerError, "InternalServerError", nil)
 }

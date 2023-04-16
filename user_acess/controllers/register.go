@@ -37,7 +37,7 @@ func (rf registerForm) AllRegisterFormValues(c echo.Context) registerForm {
 		rf.Errs.ImgErr = err.Error()
 		return rf
 	}
-
+  
 	file, err := fileHeader.Open()
 	if err != nil {
 		file.Close()
@@ -54,7 +54,7 @@ func (rf registerForm) AllRegisterFormValues(c echo.Context) registerForm {
 
 	rf.Img = make([]byte, len(src))
 	rf.Img = src
-  return rf
+	return rf
 }
 
 func (rf *registerForm) FindRegisterErrs() registerErr {
@@ -70,16 +70,16 @@ func (rf *registerForm) FindRegisterErrs() registerErr {
 		rf.Errs.ConfirmErr = err.Error()
 	}
 
-  return rf.Errs
+	return rf.Errs
 }
 
 func UserFromRegisterForm(rf registerForm) models.UserRegister {
-  var (
-    user models.User
-    userRegister models.UserRegister
-  )
+	var (
+		user         models.User
+		userRegister models.UserRegister
+	)
 
-  user.Name = rf.Name
+	user.Name = rf.Name
 	user.Email = rf.Email
 	user.Passwd = rf.Passwd
 
@@ -87,7 +87,7 @@ func UserFromRegisterForm(rf registerForm) models.UserRegister {
 		user.Img = rf.Img
 	}
 
-	userRegister.User =    user
+	userRegister.User = user
 	userRegister.Confirm = rf.Confirm
 
 	log.Println(rf.Errs.ImgErr)
@@ -118,7 +118,7 @@ func Register(c echo.Context) error {
 	}
 
 	rf := registerForm{}.AllRegisterFormValues(c)
-  rf.FindRegisterErrs()
+	rf.FindRegisterErrs()
 
 	user := UserFromRegisterForm(rf)
 
