@@ -10,6 +10,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+const (
+  addr = "localhost:8080"
+)
+
 type Template struct {
 	templates *template.Template
 }
@@ -27,7 +31,8 @@ func main() {
 
 	routes.LoadRoutes(e)
 
+	e.Server.Addr = addr
+
   fmt.Println("Listening on localhost:8080")
-	e.Server.Addr = "localhost:8080"
 	log.Fatal(e.Server.ListenAndServe())
 }
