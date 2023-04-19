@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
+	"log"
 
 	"github.com/frontend/routes"
 	"github.com/labstack/echo/v4"
@@ -25,6 +27,7 @@ func main() {
 
 	routes.LoadRoutes(e)
 
+  fmt.Println("Listening on localhost:8080")
 	e.Server.Addr = "localhost:8080"
-	e.Server.ListenAndServe()
+	log.Fatal(e.Server.ListenAndServe())
 }
