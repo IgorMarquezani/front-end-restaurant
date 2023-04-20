@@ -201,6 +201,9 @@ function removeItem(label, span, br) {
 
 function removeItem2(label, span, br, link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
+  var link = document.createElement('a');
+  link.setAttribute('value', 'deleting');
+  link.setAttribute('id', 'operation');
   var list = document.getElementById("myList2");
   label.setAttribute('hidden', '')
   span.setAttribute('hidden', '');
@@ -209,9 +212,6 @@ function removeItem2(label, span, br, link1) {
   }
   span.removeChild(link1)
   list.removeChild(br);
-  var link = document.createElement('a');
-  link.setAttribute('value', 'deleting');
-  link.setAttribute('id', 'operation');
   itemCount--;
 }
 
