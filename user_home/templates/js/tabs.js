@@ -202,11 +202,21 @@ function removeItem2(label, span, br) {
   list.removeChild(label);
   list.removeChild(span);
   list.removeChild(br);
-
+  const div = document.createElement('div');
+  div.className = "maior"
+  div.setAttribute('hidden', '');
+  list.appendChild(div)
+  var link = document.createElement('a');
+  link.setAttribute('value', 'deleting');
+  link.setAttribute('id', 'operation');
+  div.appendChild(label)
+  div.appendChild(span)
+  div.appendChild(br)
+  div.appendChild(link)
   itemCount--;
 }
 
-function removeItem3(label, span, br) {
+function removeItem3() {
   // Remove the label, span, and br elements from the list
   const list = document.getElementById("myList2");
   const labels = list.getElementsByClassName("produto");
@@ -234,10 +244,6 @@ function makeTabRequest() {
 
   const labels = Array.from(document.querySelectorAll('#myList label'));
   const spans = Array.from(document.querySelectorAll('#myList span  span.counter'));
-  var number = document.querySelector('#number').value;
-  if (number == null) {
-    number = 0
-  }
   var table = document.querySelector('#table').value;
   if (table == null) {
     table = 0
@@ -267,43 +273,18 @@ function makeTabRequest() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      console.log(response);
+      $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html(response.statusText).fadeIn();
       return response.json();
     })
     .then(data => {
-      console.log('Response from server:', data);
+      console.log(data)
     })
     .catch(error => {
       console.error('Error sending data:', error);
     });
 }
 
-
-function invitebyEmail() {
-  var convidado = document.querySelector('#convidado').value;
-  if (convidado == null) {
-    alert("Insira o id do convidado !");
-  }
-  fetch('http://localhost:3300/api/tab/register', {
-    method: 'POST',
-    headers: {
-      "Accept": "*/*",
-    },
-    credentials: 'include',
-    body: JSON.stringify(convidado)
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Response from server:', data);
-    })
-    .catch(error => {
-      console.error('Error sending data:', error);
-    });
-}
 
 function showProductInfo() {
   var itemCount = 0;
@@ -322,7 +303,10 @@ function showProductInfo() {
     const modalLabel = document.createElement('label');
     var label = document.createElement("label");
     label.innerText = productName;
-
+    
+    var link = document.createElement('a');
+    link.setAttribute('value', '');
+    link.setAttribute('id', 'operation');
     // Cria um elemento <span> para o contador e os botões
     var span = document.createElement("span");
 
@@ -334,21 +318,27 @@ function showProductInfo() {
     increaseButton.innerText = "+";
     increaseButton.style.marginRight = "10px";
     increaseButton.style.marginLeft = "10px";
-    increaseButton.onclick = function() { increaseCounter2(span); };
+    increaseButton.onclick = function() {
+      increaseCounter2(span);
 
+  };
     // Cria um botão "diminuir" para o contador
     var decreaseButton = document.createElement("button");
     decreaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     decreaseButton.innerText = "-";
     decreaseButton.style.marginRight = "10px";
     decreaseButton.style.marginLeft = "10px";
-    decreaseButton.onclick = function() { decreaseCounter2(span); };
+    decreaseButton.onclick = function() { 
+      decreaseCounter2(span);
+     };
 
     // Cria um botão "remover" para o item
     var removeButton = document.createElement("button");
     removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     removeButton.innerText = "Remover";
-    removeButton.onclick = function() { removeItem2(label, span, br); };
+    removeButton.onclick = function() { 
+      removeItem2(label, span, br);
+     };
 
     // Cria um contador para o item
     var counter = document.createElement("span");
@@ -356,6 +346,7 @@ function showProductInfo() {
     counter.innerText = productQuantity
 
     // Adiciona o contador e os botões ao elemento <span>
+    span.appendChild(link);
     span.appendChild(increaseButton);
     span.appendChild(counter);
     span.appendChild(decreaseButton);
@@ -374,6 +365,11 @@ function showProductInfo() {
 
       // Incrementa o contador
       counter.innerText = parseInt(counter.innerText) + 1;
+      counter.innerText = parseInt(counter.innerText) - 1;
+      const operationLink = document.querySelector('a#operation');
+      if (operationLink.getAttribute('value') === '') {
+          operationLink.setAttribute('value', 'editing');
+      }
     }
 
     function decreaseCounter2(span) {
@@ -383,11 +379,15 @@ function showProductInfo() {
       // Decrementa o contador, se ele não for menor que zero
       if (parseInt(counter.innerText) > 0) {
         counter.innerText = parseInt(counter.innerText) - 1;
+        const operationLink = document.querySelector('a#operation');
+        if (operationLink.getAttribute('value') === '') {
+            operationLink.setAttribute('value', 'editing');
+        }
       }
     }
     // Incrementa o contador de itens
     itemCount++;
-
+    console.log(link);
   });
 }
 document.addEventListener('click', function(event) {
@@ -458,7 +458,7 @@ function deleteTab() {
 
   console.log(productNumber),
   fetch(`http://localhost:3300/api/tab/delete/${productNumber}`, {
-    method: 'delete',
+    method: 'DELETE',
     headers: {
       "Accept": "*/*",
       "Content-Type" :'application/json',
@@ -467,7 +467,9 @@ function deleteTab() {
   })
     .then(response => {
       if (response.ok) {
-        console.log('Exclusão bem-sucedida');
+        console.log(response);
+        
+        $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeIn();
       } else {
         console.error('Erro ao excluir');
       }

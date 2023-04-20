@@ -55,7 +55,9 @@
       });
       console.log('aqui', tabs)
     }
-  </script>
+    </script>
+      <div id="box_msg2" class="alert alert-danger" style="display:none">
+      </div>
   <div class="row justify-content-left">
     {{range $index, $tab :=.Tabs}}
     <div name="tab" class="col-lg-3 col-md-12">
@@ -108,6 +110,8 @@
   </div>
   <!-- modal de cadastro -->
   <div id="signup-modal1" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div id="box_msg1" class="alert alert-danger" style="display:none">
+      </div>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -120,10 +124,6 @@
             <div class="mb-3">
               <label for="username">Table Number:</label>
               <input class="form-control" type="text" id="table" placeholder="Mesa 1">
-            </div>
-            <div class="mb-3">
-              <label for="emailaddress">Tab Number:</label>
-              <input class="form-control" type="text" id="number" placeholder="Comanda 1">
             </div>
             <div class="row">
               <div class="col-md-6">
