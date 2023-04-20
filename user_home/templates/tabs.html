@@ -127,7 +127,7 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-                <select class="selectpicker" id="mySelect">
+                <select class="selectpicker form-control" data-live-search="true" id="mySelect">
                   {{range $index, $list :=.ProductsList}}
                   {{range $index2, $product :=$list.Products}}
                   <option value="{{$product.Name}}">{{$product.Name}}</option>
@@ -166,15 +166,19 @@
             <label for="emailaddress">Tab Number:</label>
             <input class="form-control" type="text" id="numberc" disabled>
           </div>
-          <div class="mb-3">
-            <select class="selectpicker" id="mySelect2">
-              {{range $index, $list :=.ProductsList}}
-              {{range $index2, $product :=$list.Products}}
-              <option value="{{$product.Name}}">{{$product.Name}}</option>
-              {{end}}
-              {{end}}
-            </select>
-            <button id="butaoadd2" class="btn btn-primary" onclick="addItem2()">Add Item</button>
+          <div class="row">
+            <div class="col-md-6">
+              <select class="selectpicker form-control" data-live-search="true" id="mySelect">
+                {{range $index, $list :=.ProductsList}}
+                {{range $index2, $product :=$list.Products}}
+                <option value="{{$product.Name}}">{{$product.Name}}</option>
+                {{end}}
+                {{end}}
+              </select>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+              <button id="butaoadd" class="btn btn-primary" onclick="addItem()">Add Item</button>
+            </div>
           </div>
 
           <div id="myList2"></div>

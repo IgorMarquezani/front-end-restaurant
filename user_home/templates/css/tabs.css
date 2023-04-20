@@ -57,12 +57,12 @@ td {
   width: 40px;
   border: none;
   border-radius: 50%;
-  background-color: blue;
+  background-color: #2f323e;
   cursor: pointer;
 }
 
-.bell-button{
-  margin-left: 60%;
+.bell-button:hover,.person-button:hover{
+  background-color: white;
 }
 
 .person-button {

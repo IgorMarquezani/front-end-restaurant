@@ -53,7 +53,6 @@
   <!-- ============================================================== -->
   <!-- Main wrapper - style you can find in pages.scss -->
   <!-- ============================================================== -->
-
   <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
     data-sidebar-position="absolute" data-header-position="relative" data-boxed-layout="full" height="100%"
     weight="100%">
@@ -85,20 +84,7 @@
                   onclick="updateActiveRoom('{{$room.Id}}')">{{$room.Id}}</a>
               </td>
               {{end}}
-              <td>
-                <div>
-                  <button class="bell-button" padding="40px">
-                    <i class="fa fa-bell"></i>
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <button class="person-button" data-bs-toggle="modal" data-bs-target="#penis">
-                    <i class="fa fa-plus"></i>
-                  </button>
-                </div>
-              </td>
+
             </table>
           </div>
         </div>
@@ -116,7 +102,7 @@
       </div>
     </div>
 
-    <div id="penis" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="invitemodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
