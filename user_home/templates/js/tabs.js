@@ -34,9 +34,9 @@ function removeLabels() {
     divMb3.removeChild(divMb3.firstChild);
   }
 }
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function() {
+  $(window).on('hidden.bs.modal', function () {
     $('#code').modal('hide');
     removeLabels();
   });
@@ -71,7 +71,7 @@ function addItem() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function() { increaseCounter(span); };
+  increaseButton.onclick = function () { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -79,13 +79,13 @@ function addItem() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function() { decreaseCounter(span); };
+  decreaseButton.onclick = function () { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem(label, span, br); };
+  removeButton.onclick = function () { removeItem(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -115,7 +115,9 @@ function addItem2() {
 
   // Obtém o item selecionado
   var selectedItem = select.options[select.selectedIndex].value;
-
+  var link = document.createElement('a');
+  link.setAttribute('value', 'updating');
+  link.setAttribute('id', 'operation');
   // Cria um elemento <label> para o item selecionado
   var label = document.createElement("label");
   label.innerText = selectedItem;
@@ -130,7 +132,7 @@ function addItem2() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function() { increaseCounter(span); };
+  increaseButton.onclick = function () { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -138,13 +140,13 @@ function addItem2() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function() { decreaseCounter(span); };
+  decreaseButton.onclick = function () { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem2(label, span, br); };
+  removeButton.onclick = function () { removeItem2(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -152,6 +154,7 @@ function addItem2() {
   counter.innerText = "0";
 
   // Adiciona o contador e os botões ao elemento <span>
+  span.appendChild(link);
   span.appendChild(increaseButton);
   span.appendChild(counter);
   span.appendChild(decreaseButton);
@@ -196,44 +199,41 @@ function removeItem(label, span, br) {
   itemCount--;
 }
 
-function removeItem2(label, span, br) {
+function removeItem2(label, span, br, link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
   var list = document.getElementById("myList2");
-  list.removeChild(label);
-  list.removeChild(span);
+  label.setAttribute('hidden', '')
+  span.setAttribute('hidden', '');
+  if (link1.value != 'inserting') {
+    span.appendChild(link)
+  }
+  span.removeChild(link1)
   list.removeChild(br);
-  const div = document.createElement('div');
-  div.className = "maior"
-  div.setAttribute('hidden', '');
-  list.appendChild(div)
   var link = document.createElement('a');
   link.setAttribute('value', 'deleting');
   link.setAttribute('id', 'operation');
-  div.appendChild(label)
-  div.appendChild(span)
-  div.appendChild(br)
-  div.appendChild(link)
   itemCount--;
 }
 
 function removeItem3() {
   // Remove the label, span, and br elements from the list
   const list = document.getElementById("myList2");
-  const labels = list.getElementsByClassName("produto");
-  const spans = list.getElementsByClassName("itens");
-  const brs = list.getElementsByClassName("pula");
+  const labels = list.querySelectorAll("label");
+  const spans = list.querySelectorAll("span");
+  const brs = list.querySelectorAll("br");
 
-  while (labels.length > 0) {
-    labels[0].remove();
+  for (let index = 0; index < labels.length; index++) {
+    labels[index].remove();
   }
 
-  while (spans.length > 0) {
-    spans[0].remove();
+  for (let index = 0; index < spans.length; index++) {
+    spans[index].remove();
   }
 
-  while (brs.length > 0) {
-    brs[0].remove();
+  for (let index = 0; index < brs.length; index++) {
+    brs[index].remove();
   }
+
 }
 
 
@@ -275,6 +275,9 @@ function makeTabRequest() {
       }
       console.log(response);
       $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html(response.statusText).fadeIn();
+      setTimeout(() => {
+        $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeOut();
+      }, 500);
       return response.json();
     })
     .then(data => {
@@ -303,13 +306,12 @@ function showProductInfo() {
     const modalLabel = document.createElement('label');
     var label = document.createElement("label");
     label.innerText = productName;
-    
+
     var link = document.createElement('a');
     link.setAttribute('value', '');
     link.setAttribute('id', 'operation');
     // Cria um elemento <span> para o contador e os botões
     var span = document.createElement("span");
-
     var br = document.createElement("br");
 
     // Cria um botão "aumentar" para o contador
@@ -318,27 +320,27 @@ function showProductInfo() {
     increaseButton.innerText = "+";
     increaseButton.style.marginRight = "10px";
     increaseButton.style.marginLeft = "10px";
-    increaseButton.onclick = function() {
+    increaseButton.onclick = function () {
       increaseCounter2(span);
 
-  };
+    };
     // Cria um botão "diminuir" para o contador
     var decreaseButton = document.createElement("button");
     decreaseButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     decreaseButton.innerText = "-";
     decreaseButton.style.marginRight = "10px";
     decreaseButton.style.marginLeft = "10px";
-    decreaseButton.onclick = function() { 
+    decreaseButton.onclick = function () {
       decreaseCounter2(span);
-     };
+    };
 
     // Cria um botão "remover" para o item
     var removeButton = document.createElement("button");
     removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     removeButton.innerText = "Remover";
-    removeButton.onclick = function() { 
-      removeItem2(label, span, br);
-     };
+    removeButton.onclick = function () {
+      removeItem2(label, span, br, link);
+    };
 
     // Cria um contador para o item
     var counter = document.createElement("span");
@@ -365,10 +367,9 @@ function showProductInfo() {
 
       // Incrementa o contador
       counter.innerText = parseInt(counter.innerText) + 1;
-      counter.innerText = parseInt(counter.innerText) - 1;
       const operationLink = document.querySelector('a#operation');
-      if (operationLink.getAttribute('value') === '') {
-          operationLink.setAttribute('value', 'editing');
+      if (operationLink.getAttribute('value') === '' && operationLink.getAttribute('value') != 'inserting') {
+        operationLink.setAttribute('value', 'editing');
       }
     }
 
@@ -380,8 +381,8 @@ function showProductInfo() {
       if (parseInt(counter.innerText) > 0) {
         counter.innerText = parseInt(counter.innerText) - 1;
         const operationLink = document.querySelector('a#operation');
-        if (operationLink.getAttribute('value') === '') {
-            operationLink.setAttribute('value', 'editing');
+        if (operationLink.getAttribute('value') === '' && operationLink.getAttribute('value') != 'inserting') {
+          operationLink.setAttribute('value', 'editing');
         }
       }
     }
@@ -390,10 +391,9 @@ function showProductInfo() {
     console.log(link);
   });
 }
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function() {
-    $('#code').modal('hide');
+  $(window).on('hidden.bs.modal', function () {
     removeItem3();
   });
 });
@@ -403,15 +403,23 @@ function updateTabNumber() {
   // Obtém o valor do input com o ID "numberc"
   const numberInput = document.getElementById('numberc');
   const number = numberInput.value; // Obtém o valor do input
-  var table = document.querySelector('#table').value;
-  if (table == null) {
-    table = 0
+  var tables = document.querySelector('#table').value;
+  if (tables == null) {
+    tables = 0
   }
   let room = 0
   let product_list = 0;
   // Obtém todas as divs com a classe "mylist2"
   const labels = Array.from(document.querySelectorAll('#myList2 label'));
   const spans = Array.from(document.querySelectorAll('#myList2 span  span.counter'));
+  const operationLinks = Array.from(document.querySelectorAll('#myList2 span a#operation'));
+  const operationValues = operationLinks.map(link => link.getAttribute('value'));
+  const operacoes = [];
+  operationValues.forEach(value => {
+    operacoes.push(value);
+  });
+  console.log(tables)
+  console.log(operacoes)
 
   // Cria um array para armazenar os objetos de solicitação
   const requests = [];
@@ -419,23 +427,23 @@ function updateTabNumber() {
   // Loop através de cada div "mylist2"
   labels.forEach((label, index) => {
     const product_name = label.textContent;
-
+    const operacooes = operacoes[index]
     const quantity = parseInt(spans[index].textContent);
     // sum += quanity;
-    const request = { product_name: product_name, product_list: parseInt(product_list), quantity: parseInt(quantity) };
+    const request = { product_name: product_name, product_list: parseInt(product_list), quantity: parseInt(quantity), operation: operacooes };
     requests.push(request);
   });
-  const payload = { number: number, room: parseInt(room), table: parseInt(table), requests: requests };
+  const payload = { number: parseInt(number), room: parseInt(room), table: parseInt(tables), requests: requests };
 
   console.log(payload)
   // Faz uma requisição PUT para o endpoint http://localhost:3300/api/tab/update/number
-  fetch(`http://localhost:3300/api/tab/update/${number}`, {
+  fetch(`http://localhost:3300/api/tab/update?number=${number}`, {
     method: 'PUT',
     headers: {
       "Accept": "*/*",
     },
     credentials: 'include',
-    body: JSON.stringify(requests)
+    body: JSON.stringify(payload)
   })
     .then(response => {
       if (response.ok) {
@@ -457,25 +465,29 @@ function deleteTab() {
   const productNumber = data.number;
 
   console.log(productNumber),
-  fetch(`http://localhost:3300/api/tab/delete/${productNumber}`, {
-    method: 'DELETE',
-    headers: {
-      "Accept": "*/*",
-      "Content-Type" :'application/json',
-    },
-    credentials: 'include',
-  })
-    .then(response => {
-      if (response.ok) {
-        console.log(response);
-        
-        $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeIn();
-      } else {
-        console.error('Erro ao excluir');
-      }
+    fetch(`http://localhost:3300/api/tab/delete/${productNumber}`, {
+      method: 'DELETE',
+      headers: {
+        "Accept": "*/*",
+        "Content-Type": 'application/json',
+      },
+      credentials: 'include',
     })
-    .catch(error => {
-      console.error('Erro ao excluir:', error);
-    });
+      .then(response => {
+        if (response.ok) {
+          console.log(response);
+
+          $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeIn();
+          setTimeout(() => {
+            $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeOut();
+          }, 500);
+
+        } else {
+          console.error('Erro ao excluir');
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao excluir:', error);
+      });
 
 }
