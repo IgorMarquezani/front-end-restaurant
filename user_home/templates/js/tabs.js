@@ -116,7 +116,7 @@ function addItem2() {
   // Obtém o item selecionado
   var selectedItem = select.options[select.selectedIndex].value;
   var link = document.createElement('a');
-  link.setAttribute('value', 'updating');
+  link.setAttribute('value', 'inserting');
   link.setAttribute('id', 'operation');
   // Cria um elemento <label> para o item selecionado
   var label = document.createElement("label");
@@ -199,20 +199,18 @@ function removeItem(label, span, br) {
   itemCount--;
 }
 
-function removeItem2(label, span, br, link1) {
+function removeItem2(label, span, br,link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
-  var link = document.createElement('a');
-  link.setAttribute('value', 'deleting');
-  link.setAttribute('id', 'operation');
   var list = document.getElementById("myList2");
   label.setAttribute('hidden', '')
   span.setAttribute('hidden', '');
-  if (link1.value != 'inserting') {
-    span.appendChild(link)
-  }
-  span.removeChild(link1)
   list.removeChild(br);
+  var link = document.createElement('a');
+  link.setAttribute('value', 'deleting');
+  link.setAttribute('id', 'operation');
+  span.appendChild(link)
   itemCount--;
+
 }
 
 function removeItem3() {
@@ -368,8 +366,8 @@ function showProductInfo() {
       // Incrementa o contador
       counter.innerText = parseInt(counter.innerText) + 1;
       const operationLink = document.querySelector('a#operation');
-      if (operationLink.getAttribute('value') === '' && operationLink.getAttribute('value') != 'inserting') {
-        operationLink.setAttribute('value', 'editing');
+      if (operationLink.getAttribute('value') != 'inserting') {
+        operationLink.setAttribute('value', 'updating');
       }
     }
 
@@ -381,8 +379,8 @@ function showProductInfo() {
       if (parseInt(counter.innerText) > 0) {
         counter.innerText = parseInt(counter.innerText) - 1;
         const operationLink = document.querySelector('a#operation');
-        if (operationLink.getAttribute('value') === '' && operationLink.getAttribute('value') != 'inserting') {
-          operationLink.setAttribute('value', 'editing');
+        if (operationLink.getAttribute('value') != 'inserting') {
+          operationLink.setAttribute('value', 'updating');
         }
       }
     }
