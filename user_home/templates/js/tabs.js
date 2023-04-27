@@ -34,9 +34,9 @@ function removeLabels() {
     divMb3.removeChild(divMb3.firstChild);
   }
 }
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function () {
+  $(window).on('hidden.bs.modal', function() {
     $('#code').modal('hide');
     removeLabels();
   });
@@ -71,7 +71,7 @@ function addItem() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function () { increaseCounter(span); };
+  increaseButton.onclick = function() { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -79,13 +79,13 @@ function addItem() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function () { decreaseCounter(span); };
+  decreaseButton.onclick = function() { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function () { removeItem(label, span, br); };
+  removeButton.onclick = function() { removeItem(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -109,6 +109,7 @@ function addItem() {
 }
 
 function addItem2() {
+  console.log("agui")
   var itemCount = 0;
   // Seleciona o elemento <select>
   var select = document.getElementById("mySelect2");
@@ -132,7 +133,7 @@ function addItem2() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function () { increaseCounter(span); };
+  increaseButton.onclick = function() { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -140,13 +141,13 @@ function addItem2() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function () { decreaseCounter(span); };
+  decreaseButton.onclick = function() { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function () { removeItem4(label, span, br, link); };
+  removeButton.onclick = function() { removeItem4(label, span, br, link); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -199,7 +200,7 @@ function removeItem(label, span, br) {
   itemCount--;
 }
 
-function removeItem2(label, span, br,link1) {
+function removeItem2(label, span, br, link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
   var list = document.getElementById("myList2");
   label.setAttribute('hidden', '')
@@ -236,25 +237,25 @@ function removeItem3() {
 function removeItem4(label, span, br, link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
   console.log(link1)
-  var xd =link1.getAttribute('value')
+  var xd = link1.getAttribute('value')
   console.log(xd)
-  if(xd !="inserting"){
-  var list = document.getElementById("myList2");
-  label.setAttribute('hidden', '')
-  span.setAttribute('hidden', '');
-  list.removeChild(br);
-  var link = document.createElement('a');
-  link.setAttribute('value', 'deleting');
-  link.setAttribute('id', 'operation');
-  span.appendChild(link)
-}
-var list = document.getElementById("myList2")
-const labels = list.querySelector("label");
-const spans = list.querySelector("span");
-const brs = list.querySelector("br");
- list.removeChild(labels)   
- list.removeChild(spans)   
- list.removeChild(brs)   
+  if (xd != "inserting") {
+    var list = document.getElementById("myList2");
+    label.setAttribute('hidden', '')
+    span.setAttribute('hidden', '');
+    list.removeChild(br);
+    var link = document.createElement('a');
+    link.setAttribute('value', 'deleting');
+    link.setAttribute('id', 'operation');
+    span.appendChild(link)
+  }
+  var list = document.getElementById("myList2")
+  const labels = list.querySelector("label");
+  const spans = list.querySelector("span");
+  const brs = list.querySelector("br");
+  list.removeChild(labels)
+  list.removeChild(spans)
+  list.removeChild(brs)
 }
 
 function addTabToMap(index, tab) {
@@ -294,10 +295,11 @@ function makeTabRequest() {
         throw new Error('Network response was not ok');
       }
       console.log(response);
-      $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html(response.statusText).fadeIn();
+      scrollTo(0, 0),
+        $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html(response.statusText).fadeIn();
       setTimeout(() => {
-        $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeOut();
-      }, 500);
+        $("#box_msg1").removeClass('alert-danger').addClass('alert-success').fadeOut();
+      }, 1500);
       return response.json();
     })
     .then(data => {
@@ -340,7 +342,7 @@ function showProductInfo() {
     increaseButton.innerText = "+";
     increaseButton.style.marginRight = "10px";
     increaseButton.style.marginLeft = "10px";
-    increaseButton.onclick = function () {
+    increaseButton.onclick = function() {
       increaseCounter2(span);
 
     };
@@ -350,7 +352,7 @@ function showProductInfo() {
     decreaseButton.innerText = "-";
     decreaseButton.style.marginRight = "10px";
     decreaseButton.style.marginLeft = "10px";
-    decreaseButton.onclick = function () {
+    decreaseButton.onclick = function() {
       decreaseCounter2(span);
     };
 
@@ -358,7 +360,7 @@ function showProductInfo() {
     var removeButton = document.createElement("button");
     removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     removeButton.innerText = "Remover";
-    removeButton.onclick = function () {
+    removeButton.onclick = function() {
       removeItem2(label, span, br, link);
     };
 
@@ -411,9 +413,9 @@ function showProductInfo() {
     console.log(link);
   });
 }
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function () {
+  $(window).on('hidden.bs.modal', function() {
     removeItem3();
   });
 });
@@ -496,11 +498,11 @@ function deleteTab() {
       .then(response => {
         if (response.ok) {
           console.log(response);
-
+          scrollTo(0, 0);
           $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeIn();
           setTimeout(() => {
-            $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeOut();
-          }, 500);
+            $("#box_msg2").removeClass('alert-danger').addClass('alert-success').fadeOut();
+          }, 1500);
 
         } else {
           console.error('Erro ao excluir');
@@ -509,5 +511,8 @@ function deleteTab() {
       .catch(error => {
         console.error('Erro ao excluir:', error);
       });
+}
+
+function renderTabFromWebsocket(tab) {
 
 }

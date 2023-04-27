@@ -33,6 +33,6 @@ func main() {
 
 	e.Server.Addr = addr
 
-  fmt.Println("Listening on localhost:8080")
+  fmt.Println("Listening on " + addr)
 	log.Fatal(e.Server.ListenAndServe())
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -8,6 +9,10 @@ import (
 	"github.com/frontend/controllers"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+)
+
+const (
+  addr = "localhost:8081"
 )
 
 type Template struct {
@@ -35,6 +40,7 @@ func main() {
   e.RouteNotFound("/*", NotFound)
 	e.File("/css/newstyle.css", "templates/css/newstyle.css", middleware.Logger())
 
-	e.Server.Addr = "localhost:8081"
+	e.Server.Addr = addr
+  fmt.Println("Listening on:", addr)
 	e.Server.ListenAndServe()
 }
