@@ -109,7 +109,6 @@ function addItem() {
 }
 
 function addItem2() {
-  console.log("agui")
   var itemCount = 0;
   // Seleciona o elemento <select>
   var select = document.getElementById("mySelect2");
@@ -236,9 +235,7 @@ function removeItem3() {
 }
 function removeItem4(label, span, br, link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
-  console.log(link1)
   var xd = link1.getAttribute('value')
-  console.log(xd)
   if (xd != "inserting") {
     var list = document.getElementById("myList2");
     label.setAttribute('hidden', '')
@@ -294,7 +291,6 @@ function makeTabRequest() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      console.log(response);
       scrollTo(0, 0),
         $("#box_msg1").removeClass('alert-danger').addClass('alert-success').html(response.statusText).fadeIn();
       setTimeout(() => {
@@ -303,7 +299,6 @@ function makeTabRequest() {
       return response.json();
     })
     .then(data => {
-      console.log(data)
     })
     .catch(error => {
       console.error('Error sending data:', error);
@@ -514,5 +509,36 @@ function deleteTab() {
 }
 
 function renderTabFromWebsocket(tab) {
-
-}
+  // find the last div element with name="tab"
+  console.log(tab)
+  
+   var tabDivs = document.querySelectorAll('div[name="tab"]');
+   var tabDiv = tabDivs[tabDivs.length - 1];
+   var newTabDiv = document.createElement("div");
+   newTabDiv.setAttribute("name", "tab");
+   newTabDiv.setAttribute("class", "col-lg-3 col-md-12");
+   newTabDiv.innerHTML = `
+     <a id="tabnumber" value="${tab.number}T"></a>
+     <a id="tabValue" type="hidden" value="${tab}"></a>
+     <div class="white-box analytics-info">
+       <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" onclick="openTabModal()" data-bs-target="#al-info-alert">
+         <h3 class="box-title">Tab: ${tab.number}</h3>
+         <ul class="list-inline two-part d-flex align-items-center mb-0">
+           <li>
+             <div>
+               <i class="fas fa-3x fa-users" aria-hidden="true"></i>
+             </div>
+           </li>
+           <li class="ms-auto"><span class="counter text-dark">R$ ${tab.payValue}</span></li>
+         </ul>
+       </button>
+       <br>
+       <ul class="list-inline two-part d-flex align-items-center mb-0">
+         <button class="btn btn-primary" id="editButton" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="showProductInfo()">Edit</button>
+         <button class="btn btn-danger" id="deleteButton" onclick="deleteTab()">Delete</button>
+       </ul>
+     </div>`
+   ;
+   tabDiv.parentNode.insertBefore(newTabDiv, tabDiv.nextSibling);
+ 
+ }
