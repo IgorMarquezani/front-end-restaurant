@@ -93,8 +93,14 @@ function removeProduct() {
         setTimeout(() => {
             $("#box_msg").removeClass('alert-danger').addClass('alert-success').fadeOut();
         }, 1500);
+      } else if (response.status == 409) {
+        scrollTo(0, 0);
+        $("#box_msg").removeClass('alert-success').addClass('alert-danger').html(`Uma ou mais comandas estão usando este produto: ${productName}`).fadeIn();
+        setTimeout(() => {
+            $("#box_msg").removeClass('alert-danger').addClass('alert-success').fadeOut();
+        }, 1500);
       } else {
-        console.error('Error adding product:', error);
+        console.log('Error adding product:', response.json());
         scrollTo(0, 0);
         $("#box_msg").removeClass('alert-success').addClass('alert-danger').html("Houve um erro ao remover o  produto").fadeIn();
         setTimeout(() => {

@@ -9,14 +9,14 @@ import (
 )
 
 const (
-  addr = "localhost:8082"
+	addr = "localhost:8082"
 )
 
 func main() {
 	e := echo.New()
 	e.Server.Addr = addr
 
-  routes.Register(e)
-  fmt.Println("Listening on:", addr)
+	routes.Register(e)
+	fmt.Println("Listening on:", addr)
 	log.Fatal(e.Server.ListenAndServe())
 }

@@ -23,26 +23,26 @@ const (
 )
 
 func FullRoomInfo(c echo.Context, roomId int) (Room, int) {
-  var room Room
+	var room Room
 
-	request, err := http.NewRequest("GET", roomInfoURL + strconv.Itoa(roomId), bytes.NewBuffer(make([]byte, 1)))
-  if err != nil {
-    panic(err)
-  }
-  defer request.Body.Close()
+	request, err := http.NewRequest("GET", roomInfoURL+strconv.Itoa(roomId), bytes.NewBuffer(make([]byte, 1)))
+	if err != nil {
+		panic(err)
+	}
+	defer request.Body.Close()
 
 	cookie, err := c.Cookie("_SecurePS")
 	if err != nil {
-    return room, http.StatusUnauthorized
+		return room, http.StatusUnauthorized
 	}
 
 	request.AddCookie(cookie)
 
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
-    panic(err)
+		panic(err)
 	}
-  defer response.Body.Close()
+	defer response.Body.Close()
 
 	if response.StatusCode == http.StatusOK {
 		json.NewDecoder(response.Body).Decode(&room)
