@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func UserPage(c echo.Context) error  {
+func UserPage(c echo.Context) error {
 	user, status := models.MustFullUserInfo(c)
 
 	if status == http.StatusOK {

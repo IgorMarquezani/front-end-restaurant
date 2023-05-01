@@ -12,7 +12,7 @@ import (
 )
 
 const (
-  addr = "localhost:8081"
+	addr = "localhost:8081"
 )
 
 type Template struct {
@@ -24,7 +24,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 }
 
 func NotFound(c echo.Context) error {
-  return c.Render(http.StatusNotFound, "NotFound", nil)
+	return c.Render(http.StatusNotFound, "NotFound", nil)
 }
 
 func main() {
@@ -37,10 +37,10 @@ func main() {
 	e.Static("/templates", "templates")
 	e.Any("/home", controllers.Home, middleware.Logger())
 	e.GET("/room", controllers.Tabs, middleware.Logger())
-  e.RouteNotFound("/*", NotFound)
+	e.RouteNotFound("/*", NotFound)
 	e.File("/css/newstyle.css", "templates/css/newstyle.css", middleware.Logger())
 
 	e.Server.Addr = addr
-  fmt.Println("Listening on:", addr)
+	fmt.Println("Listening on:", addr)
 	e.Server.ListenAndServe()
 }

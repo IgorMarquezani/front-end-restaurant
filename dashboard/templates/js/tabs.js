@@ -7,21 +7,32 @@ function openTabModal() {
 
   // Acessa o array de requests e percorre seus itens
   const modalLabel2 = document.querySelector('#mesacodigo');
-  modalLabel2.textContent = `Codigo da mesa: ${productNumber}`;
+  modalLabel2.textContent = `Número da mesa: ${productNumber}`;
+
   data.requests.forEach(request => {
     const productName = request.product_name;
     const productQuantity = request.quantity;
 
+    const productNameLabel = document.createElement('label');
     // Cria uma label para cada item de request
-    const modalLabel = document.createElement('label');
-    modalLabel.textContent = `Product: ${productName}, Quantity: ${productQuantity}`;
-    modalLabel.setAttribute('for', `product_${productNumber}`);
+    productNameLabel.textContent = `Produto: ${productName}`;
+    productNameLabel.setAttribute('for', `product_${productNumber}`);
+
+    const productQuantityLabel = document.createElement('label')
+    productQuantityLabel.textContent = `Quantidade: ${productQuantity}`;
+    productQuantityLabel.setAttribute('for', `product_${productNumber}`);
+
+    const br1 = document.createElement('br')
+    const br2 = document.createElement('br')
 
     // Encontra a div "mb-3" dentro do modal "al-info-alert"
     const divMb3 = document.getElementById('al-info-alert').querySelector('.mb-3');
 
     // Adiciona a label à div "mb-3" encontrada
-    divMb3.appendChild(modalLabel);
+    divMb3.appendChild(productNameLabel);
+    divMb3.appendChild(br1);
+    divMb3.appendChild(productQuantityLabel);
+    divMb3.appendChild(br2);
   });
 }
 // Use os valores obtidos para exibir as informações no modal
@@ -236,6 +247,7 @@ function removeItem3() {
 function removeItem4(label, span, br, link1) {
   // Remove o elemento <label>, o elemento <span> e a quebra de linha da lista
   var xd = link1.getAttribute('value')
+
   if (xd != "inserting") {
     var list = document.getElementById("myList2");
     label.setAttribute('hidden', '')
@@ -246,18 +258,21 @@ function removeItem4(label, span, br, link1) {
     link.setAttribute('id', 'operation');
     span.appendChild(link)
   }
+
   var list = document.getElementById("myList2")
   const labels = list.querySelector("label");
   const spans = list.querySelector("span");
   const brs = list.querySelector("br");
+
   list.removeChild(labels)
   list.removeChild(spans)
   list.removeChild(brs)
 }
 
-function addTabToMap(index, tab) {
-  tabs.set(index, JSON.stringify(tab));
-}
+// function addTabToMap(index, tab) {
+//   tabs.set(index, JSON.stringify(tab));
+// }
+
 function makeTabRequest() {
 
   const labels = Array.from(document.querySelectorAll('#myList label'));
@@ -315,6 +330,7 @@ function showProductInfo() {
   const productNumber = data.number;
   const numberInput = document.getElementById('numberc');
   numberInput.value = productNumber;
+
   data.requests.forEach(request => {
     const productName = request.product_name;
     const productQuantity = request.quantity;
@@ -510,14 +526,15 @@ function deleteTab() {
 
 function renderTabFromWebsocket(tab) {
   // find the last div element with name="tab"
+  tab = JSON.parse(tab)
   console.log(tab)
-  
-   var tabDivs = document.querySelectorAll('div[name="tab"]');
-   var tabDiv = tabDivs[tabDivs.length - 1];
-   var newTabDiv = document.createElement("div");
-   newTabDiv.setAttribute("name", "tab");
-   newTabDiv.setAttribute("class", "col-lg-3 col-md-12");
-   newTabDiv.innerHTML = `
+
+  var tabDivs = document.querySelectorAll('div[name="tab"]');
+  var tabDiv = tabDivs[tabDivs.length - 1];
+  var newTabDiv = document.createElement("div");
+  newTabDiv.setAttribute("name", "tab");
+  newTabDiv.setAttribute("class", "col-lg-3 col-md-12");
+  newTabDiv.innerHTML = `
      <a id="tabnumber" value="${tab.number}T"></a>
      <a id="tabValue" type="hidden" value="${tab}"></a>
      <div class="white-box analytics-info">
@@ -529,7 +546,7 @@ function renderTabFromWebsocket(tab) {
                <i class="fas fa-3x fa-users" aria-hidden="true"></i>
              </div>
            </li>
-           <li class="ms-auto"><span class="counter text-dark">R$ ${tab.payValue}</span></li>
+           <li class="ms-auto"><span class="counter text-dark">R$ ${tab.pay_value}</span></li>
          </ul>
        </button>
        <br>
@@ -538,7 +555,7 @@ function renderTabFromWebsocket(tab) {
          <button class="btn btn-danger" id="deleteButton" onclick="deleteTab()">Delete</button>
        </ul>
      </div>`
-   ;
-   tabDiv.parentNode.insertBefore(newTabDiv, tabDiv.nextSibling);
- 
- }
+    ;
+  tabDiv.parentNode.insertBefore(newTabDiv, tabDiv.nextSibling);
+
+}

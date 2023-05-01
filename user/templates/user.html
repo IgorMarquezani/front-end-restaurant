@@ -27,7 +27,8 @@
   <link rel="stylesheet" href="/templates/css/newstyle.css">
   <link rel="stylesheet" href="/templates/css/icons/font-awesome/css/fontawesome-all.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -83,27 +84,18 @@
           <div class="col-lg-4 col-xlg-3 col-md-12">
             <div class="white-box">
               <div class="user-bg">
-                <img width="100%" alt="user" src="./Ample Admin Lite Template by WrapPixel_files/img1.jpg">
+                <img width="100%" src="./Ample Admin Lite Template by WrapPixel_files/img1.jpg">
                 <div class="overlay-box">
                   <div class="user-content">
-                    <a href="javascript:void(0)"><img src="./Ample Admin Lite Template by WrapPixel_files/genu.jpg"
-                        class="thumb-lg img-circle" alt="img"></a>
-                    <h3 class="text-white mt-2">{{.Id}}</h4>
+                    <a href="javascript:void(0)">
+                      <img id="mainUserImage" src="" class="thumb-lg img-circle" alt="img"></a>
                     <h4 class="text-white mt-2">{{.Name}}</h4>
                     <h5 class="text-white mt-2">{{.Email}}</h5>
                   </div>
                 </div>
               </div>
               <div class="user-btm-box mt-5 d-md-flex">
-                <div class="col-md-4 col-sm-4 text-center">
-                  <h1>258</h1>
-                </div>
-                <div class="col-md-4 col-sm-4 text-center">
-                  <h1>125</h1>
-                </div>
-                <div class="col-md-4 col-sm-4 text-center">
-                  <h1>556</h1>
-                </div>
+                <h3>Seu Id: {{.Id}}</h3>
               </div>
             </div>
           </div>
@@ -115,26 +107,26 @@
                     <div class="form-group mb-4 col-lg-6 col-xlg-6 col-md-6">
                       <label class="col-md-12 p-0">Nome</label>
                       <div class="col-md-12 border-bottom p-0">
-                        <input type="text" placeholder="Carlos" value="{{.Name}}" class="form-control p-0 border-0">
+                        <input type="text" value="{{.Name}}" class="form-control p-0 border-0">
                       </div>
                     </div>
                     <div class="form-group mb-4 mb-4 col-lg-6 col-xlg-6 col-md-6">
                       <label for="example-email" class="col-md-12 p-0">Email</label>
                       <div class="col-md-12 border-bottom p-0">
-                        <input type="email" value="{{.Email}}" class="form-control p-0 border-0"
-                          name="example-email" id="example-email">
+                        <input type="email" value="{{.Email}}" class="form-control p-0 border-0" name="example-email"
+                          id="example-email">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group mb-4 col-lg-6 col-xlg-6 col-md-6">
-                      <label class="col-md-12 p-0">Password</label>
+                      <label class="col-md-12 p-0">Senha</label>
                       <div class="col-md-12 border-bottom p-0">
                         <input type="password" value="" class="form-control p-0 border-0">
                       </div>
                     </div>
                     <div class="form-group mb-4 col-lg-6 col-xlg-6 col-md-6">
-                      <label class="col-md-12 p-0">Confirme Password</label>
+                      <label class="col-md-12 p-0">Confirme a senha</label>
                       <div class="col-md-12 border-bottom p-0">
                         <input type="password" value="" class="form-control p-0 border-0">
                       </div>
@@ -191,6 +183,9 @@
   <script src="/templates/js/sidebarmenu.js"></script>
   <!--Custom JavaScript -->
   <script src="/templates/js/custom.js"></script>
+  <script>
+    document.getElementById("mainUserImage").src = "data:image/png;base64," + {{.Img}};
+  </script>
 </body>
 
 </html>

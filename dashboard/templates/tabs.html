@@ -41,10 +41,12 @@
 
 <body>
   <script type="text/javascript">
-    let tabs = [];
+    var tabs = [];
+
     $(document).ready(function () {
       initTabsMap();
     });
+
     function initTabsMap() {
       const tabsd = document.querySelectorAll('div[name="tab"]');
       tabsd.forEach((tabDiv) => {
@@ -56,6 +58,7 @@
       console.log('aqui', tabs)
     }
   </script>
+
   <div id="box_msg2" class="alert alert-danger" style="display:none">
   </div>
   <div class="row justify-content-left" id="tabs">
@@ -232,7 +235,7 @@
 <script>
   let socket = new WebSocket('ws://localhost:3300/api/tab/websocket')
   socket.onopen = (event) => console.log('WebSocket Created')
-  socket.onmessage = (msg) => renderTabFromWebsocket(msg)
+  socket.onmessage = (msg) => renderTabFromWebsocket(msg.data)
   socket.onerror = (error) => console.error('Web Socket Error:', error)
   socket.onclose = (event) => console.log('Disconnected')
 </script>

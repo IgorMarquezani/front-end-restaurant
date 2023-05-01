@@ -37,7 +37,7 @@ func (rf registerForm) AllRegisterFormValues(c echo.Context) registerForm {
 		rf.Errs.ImgErr = err.Error()
 		return rf
 	}
-  
+
 	file, err := fileHeader.Open()
 	if err != nil {
 		file.Close()

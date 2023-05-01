@@ -5,13 +5,10 @@ import (
 	"html/template"
 	"io"
 	"log"
+	"os"
 
 	"github.com/frontend/routes"
 	"github.com/labstack/echo/v4"
-)
-
-const (
-  addr = "localhost:8080"
 )
 
 type Template struct {
@@ -23,16 +20,21 @@ func (t *Template) Render(w io.Writer, name string, data any, c echo.Context) er
 }
 
 func main() {
+	var (
+		ip   = os.Getenv("IP")
+		port = os.Getenv("PORT")
+	)
+
 	e := echo.New()
 
-	e.Renderer = &Template {
+	e.Renderer = &Template{
 		templates: template.Must(template.ParseGlob("./templates/*.html")),
 	}
 
 	routes.LoadRoutes(e)
 
-	e.Server.Addr = addr
+	e.Server.Addr = ip + ":" + port
 
-  fmt.Println("Listening on " + addr)
+	fmt.Println("Listening on", e.Server.Addr)
 	log.Fatal(e.Server.ListenAndServe())
 }
