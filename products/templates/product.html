@@ -35,8 +35,8 @@
       <!-- Bread crumb and right sidebar toggle -->
       <!-- ============================================================== -->
       <div class="page-breadcrumb bg-white">
-        <div id="box_msg" class="alert alert-danger" style="display:none">
-        </div>
+        <div id="box_msg" class="alert alert-danger" style="display:none"></div>
+        <a value="" id="productname" class="alert alert-danger" style="display:none"></a>
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
             <h4 class="page-title">Registro de Produto</h4>
@@ -97,10 +97,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group mb-4">
-                  <div class="col-sm-12">
-                    <button onclick="createProduct()" class="btn btn-success">Salvar</button>
+                <div class="row">
+                  <div class="col">
+                    <button id="salvar" onclick="createProduct()" class="btn btn-success">Salvar</button>
                     <button class="btn btn-danger" onclick="convertSelectToInput()">Trocar campo de tipo</button>
+                    <button id="cancelar" onclick="editProductDesactivate()" class="btn btn-danger" style="display:none">Cancelar</button>
                   </div>
                 </div>
               </div>
@@ -157,7 +158,7 @@
                       <td id="{{$product.Name}}"><button onclick="removeProduct()"><i class="fa fa-trash"
                             aria-hidden="true"></i>
                         </button></td>
-                      <td><button><i class="fa fa-pen" aria-hidden="true"></i>
+                      <td id="{{$product.Name}}"><button onclick="editProductActivate()" ><i class="fa fa-pen" aria-hidden="true"></i>
                         </button></td>
                     </tr>
                     {{end}}

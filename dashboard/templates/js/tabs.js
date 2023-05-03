@@ -553,7 +553,7 @@ function renderTabFromWebsocket(tab) {
      <a id="tabValue" type="hidden" value="${tab}"></a>
      <div class="white-box analytics-info">
        <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" onclick="openTabModal()" data-bs-target="#al-info-alert">
-         <h3 class="box-title">Tab: ${tab.number}</h3>
+         <h3 class="box-title">Comanda: ${tab.number}</h3>
          <ul class="list-inline two-part d-flex align-items-center mb-0">
            <li>
              <div>
