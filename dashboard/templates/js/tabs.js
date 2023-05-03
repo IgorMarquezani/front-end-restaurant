@@ -526,8 +526,22 @@ function deleteTab() {
 
 function renderTabFromWebsocket(tab) {
   // find the last div element with name="tab"
-  tab = JSON.parse(tab)
-  console.log(tab)
+  let msg = []
+  let tabNumber = []
+  msg = tab
+
+  try {
+    tab = JSON.parse(tab)
+  } catch (error) {
+    // the message is always this way: "Delete tab of number: N"
+    for (let i = msg.indexOf(':') + 2; i < msg.length; i++) {
+      tabNumber += msg[i]
+    }
+
+    tabNumber = parseInt(tabNumber)
+    // put your logic right here for deleting the tab of number N. don't remove the "return" 
+    return
+  }
 
   var tabDivs = document.querySelectorAll('div[name="tab"]');
   var tabDiv = tabDivs[tabDivs.length - 1];
