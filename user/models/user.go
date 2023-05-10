@@ -23,6 +23,15 @@ const (
 	userInfoURL string = "http://localhost:3300/api/user/full-info"
 )
 
+func (u User) IsValidImage() bool {
+  fileFormat := http.DetectContentType(u.Img)
+  if fileFormat == "image/png" || fileFormat == "image/jpeg" {
+    return true
+  }
+
+  return false
+}
+
 func NewUserRequest(user UserRegister) (int, error) {
 	jsonUser, _ := json.Marshal(user)
 	body := bytes.NewBuffer(jsonUser)

@@ -8,7 +8,7 @@ import (
 )
 
 func Home(c echo.Context) error {
-	user, status := models.MustFullUserInfo(c)
+	user, status := models.FullUserInfo(c)
 
 	if status == http.StatusOK {
 		return c.Render(http.StatusOK, "Home", user)

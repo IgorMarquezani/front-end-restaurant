@@ -88,7 +88,8 @@
                 <div class="overlay-box">
                   <div class="user-content">
                     <a href="javascript:void(0)">
-                      <img id="mainUserImage" src="" class="thumb-lg img-circle" alt="img"></a>
+                      <img id="mainUserImage" src="" class="thumb-lg img-circle"
+                        alt="img"></a>
                     <h4 class="text-white mt-2">{{.Name}}</h4>
                     <h5 class="text-white mt-2">{{.Email}}</h5>
                   </div>
@@ -184,7 +185,11 @@
   <!--Custom JavaScript -->
   <script src="/templates/js/custom.js"></script>
   <script>
+    {{if eq .IsValidImage true}}
     document.getElementById("mainUserImage").src = "data:image/png;base64," + {{.Img}};
+    {{else}}
+    document.getElementById("mainUserImage").src = "/templates/images/person-circle.svg";
+    {{end}}
   </script>
 </body>
 

@@ -100,7 +100,7 @@
                 <div class="row">
                   <div class="col">
                     <button id="salvar" onclick="createProduct()" class="btn btn-success">Salvar</button>
-                    <button class="btn btn-danger" onclick="convertSelectToInput()">Trocar campo de tipo</button>
+                    <button class="btn btn-danger" onclick="convertSelectToInput()">Inserir tipo novo</button>
                     <button id="cancelar" onclick="editProductDesactivate()" class="btn btn-danger" style="display:none">Cancelar</button>
                   </div>
                 </div>
@@ -152,7 +152,11 @@
                     {{range $index2, $product :=$list.Products}}
                     <tr>
                       <td>{{$product.Name}}</td>
+                      {{if eq $product.ListName "orphans"}}
+                      <td>Outros</td>
+                      {{else}}
                       <td>{{$product.ListName}}</td>
+                      {{end}}
                       <td>{{$product.Price}}</td>
                       <td>{{$product.Description}}</td>
                       <td id="{{$product.Name}}"><button onclick="removeProduct()"><i class="fa fa-trash"

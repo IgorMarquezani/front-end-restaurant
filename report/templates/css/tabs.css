@@ -1,0 +1,80 @@
+
+td {
+  padding-right: 10px;
+};
+
+.btn{
+  padding-right:10px;
+}
+
+.btn2 {
+  transition-duration: 0.4s;
+  all: unset;
+  cursor: pointer;
+  color: black;
+  border: none
+}
+
+.btn2:focus{
+  outline: none;
+}
+
+.service h3{
+  color: aqua;
+}
+
+.btn2:hover {
+  background-color: #808080; /* Green */
+  color: #808080;
+}
+.myIframe {
+  outline: none;
+  position: relative;
+  padding-bottom: 65.25%;
+  padding-top: 30px;
+  height: auto;
+  width: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; /*<<--- THIS IS THE KEY*/ 
+}
+
+.myIframe iframe {
+  outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.bell-button,
+.person-button {
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: #2f323e;
+  cursor: pointer;
+}
+
+.bell-button:hover,.person-button:hover{
+  background-color: white;
+}
+
+.person-button {
+  position: relative;
+  margin-left: 10px;
+}
+
+.bell-button i,
+.person-button i {
+  color: #000000;
+}
+
+.botaoadd{
+  margin-left: 30px;
+}

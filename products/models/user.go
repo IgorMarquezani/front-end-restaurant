@@ -24,6 +24,15 @@ const (
 	userWithActiveRoomProductsURL string = "http://localhost:3300/api/user/with-active-room-products"
 )
 
+func (u User) IsValidImage() bool {
+  fileFormat := http.DetectContentType(u.Img)
+  if fileFormat == "image/png" || fileFormat == "image/jpeg" {
+    return true
+  }
+
+  return false
+}
+
 func UserWithActiveRoomProducts(c echo.Context) (User, int) {
 	var user User
 

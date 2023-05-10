@@ -67,7 +67,11 @@
     </div>
   </nav>
   <script>
+    {{if eq .IsValidImage true}}
     document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img}};
+    {{else}}
+    document.getElementById("ItemPreview").src = "/templates/images/person-circle.svg";
+    {{end}}
   </script>
 </header>
 
