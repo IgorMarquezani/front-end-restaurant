@@ -44,16 +44,19 @@
         <!-- ============================================================== -->
         <!-- User profile and search -->
         <!-- ============================================================== -->
-        <div>
-          <button class="bell-button" padding="40px">
+        <div class="notification-wrapper">
+          <button id="notificationButton" class="bell-button" onclick="renderNotificationList()" padding="40px">
             <i class="fa fa-bell"></i>
           </button>
+          <div id="notificationContainer"></div>
         </div>
         <div>
+
           <button class="person-button" data-bs-toggle="modal" data-bs-target="#invitemodal">
             <i class="fa fa-plus"></i>
           </button>
         </div>
+
         <li>
           <a class="profile-pic" href="http://localhost:8080/user">
             <img id="ItemPreview" src="" alt="user-img" width="36" class="img-circle">
@@ -67,12 +70,120 @@
     </div>
   </nav>
   <script>
-    {{if eq .IsValidImage true}}
-    document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img}};
-    {{else}}
+    { { if eq.IsValidImage true } }
+    document.getElementById("ItemPreview").src = "data:image/png;base64," + {{.Img }};
+    { {else } }
     document.getElementById("ItemPreview").src = "/templates/images/person-circle.svg";
-    {{end}}
+    { { end } }
   </script>
+
+  <script>
+    function renderNotificationList() {
+      var container = document.getElementById('notificationContainer');
+      var button = document.getElementById('notificationButton');
+
+      // Clear existing notifications
+      container.innerHTML = '';
+
+        // If the notification list is already visible, hide it
+  if (container.style.display === 'block') {
+    container.style.display = 'none';
+    return;
+  }
+
+      // Example notifications
+      var notifications = [
+    { text: 'Notification 1', status: true },
+    { text: 'Notification 2', status: false },
+    { text: 'Notification 3', status: true }
+  ];
+
+  for (var i = 0; i < notifications.length; i++) {
+    var notification = document.createElement('div');
+    notification.className = 'notification-item';
+
+    var dot = document.createElement('div');
+    dot.className = 'notification-dot ' + (notifications[i].status ? 'notification-dot-true' : 'notification-dot-false');
+
+    var text = document.createElement('div');
+    text.className = 'notification-text';
+    text.textContent = notifications[i].text;
+
+    var acceptButton = document.createElement('button');
+    acceptButton.className = 'notification-button';
+    acceptButton.textContent = 'Accept';
+
+    var declineButton = document.createElement('button');
+    declineButton.className = 'notification-button';
+    declineButton.textContent = 'Decline';
+
+    notification.appendChild(dot);
+    notification.appendChild(text);
+    notification.appendChild(acceptButton);
+    notification.appendChild(declineButton);
+
+    container.appendChild(notification);
+  }
+      // Adjust container size and position
+      var containerHeight = notification.length * 30 + 20; // Calculate height based on notification count
+      container.style.height = containerHeight + 'px';
+      container.style.width = 300 + 'px'
+      container.style.display = 'block';
+      container.style.top = button.offsetHeight + 10 + 'px';
+    }
+
+  </script>
+  <style>
+    .notification-wrapper {
+      position: relative;
+    }
+
+    #notificationContainer {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      display: none;
+      z-index: 9999;
+      white-space: nowrap;
+      /* Prevent text wrapping */
+      text-align: center;
+      /* Center-align text */
+    }
+
+    #notificationContainer div:not(:last-child) {
+      margin-bottom: 10px;
+      /* Add spacing between notifications */
+
+    }
+
+    .notification-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .notification-dot-true {
+      background-color: green;
+    }
+
+    .notification-dot-false {
+      background-color: red;
+    }
+
+    .notification-text {
+      flex-grow: 1;
+    }
+
+    .notification-button {
+      margin-left: 10px;
+    }
+  </style>
 </header>
 
 {{end}}
