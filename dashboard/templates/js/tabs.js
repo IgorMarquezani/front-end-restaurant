@@ -7,7 +7,7 @@ function openTabModal() {
 
   // Acessa o array de requests e percorre seus itens
   const modalLabel2 = document.querySelector('#mesacodigo');
-  modalLabel2.textContent = `Número da mesa: ${productNumber}`;
+  modalLabel2.textContent = `Número da mesa: ${data.table}`;
 
   data.requests.forEach(request => {
     const productName = request.product_name;
