@@ -539,7 +539,18 @@ function renderTabFromWebsocket(tab) {
     }
 
     tabNumber = parseInt(tabNumber)
-    // put your logic right here for deleting the tab of number N. don't remove the "return" 
+    var anchorId = 'tabnumber';
+    var anchorValue = tabNumber + 'T';
+  
+    var anchor = document.querySelector('a#' + anchorId + '[value="' + anchorValue + '"]');
+    if (anchor) {
+      var div = anchor.closest('div[name="tab"]');
+      if (div) {
+        div.remove();
+        console.log('Div with name "tab" closest to the anchor with ID "' + anchorId + '" and value "' + anchorValue + '" removed.');
+        return;
+      }
+    }
     return
   }
 
@@ -548,9 +559,10 @@ function renderTabFromWebsocket(tab) {
   var newTabDiv = document.createElement("div");
   newTabDiv.setAttribute("name", "tab");
   newTabDiv.setAttribute("class", "col-lg-3 col-md-12");
+  
   newTabDiv.innerHTML = `
      <a id="tabnumber" value="${tab.number}T"></a>
-     <a id="tabValue" type="hidden" value="${tab}"></a>
+     <a id="tabValue" type="hidden" value='${msg}'></a>
      <div class="white-box analytics-info">
        <button type="button" class="btn2 bg-transparent border-0" data-bs-toggle="modal" onclick="openTabModal()" data-bs-target="#al-info-alert">
          <h3 class="box-title">Comanda: ${tab.number}</h3>
