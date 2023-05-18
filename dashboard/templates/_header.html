@@ -76,63 +76,7 @@
     document.getElementById("ItemPreview").src = "/templates/images/person-circle.svg";
     { { end } }
   </script>
-
-  <script>
-    function renderNotificationList() {
-      var container = document.getElementById('notificationContainer');
-      var button = document.getElementById('notificationButton');
-
-      // Clear existing notifications
-      container.innerHTML = '';
-
-        // If the notification list is already visible, hide it
-  if (container.style.display === 'block') {
-    container.style.display = 'none';
-    return;
-  }
-
-      // Example notifications
-      var notifications = [
-    { text: 'Notification 1', status: true },
-    { text: 'Notification 2', status: false },
-    { text: 'Notification 3', status: true }
-  ];
-
-  for (var i = 0; i < notifications.length; i++) {
-    var notification = document.createElement('div');
-    notification.className = 'notification-item';
-
-    var dot = document.createElement('div');
-    dot.className = 'notification-dot ' + (notifications[i].status ? 'notification-dot-true' : 'notification-dot-false');
-
-    var text = document.createElement('div');
-    text.className = 'notification-text';
-    text.textContent = notifications[i].text;
-
-    var acceptButton = document.createElement('button');
-    acceptButton.className = 'notification-button';
-    acceptButton.textContent = 'Accept';
-
-    var declineButton = document.createElement('button');
-    declineButton.className = 'notification-button';
-    declineButton.textContent = 'Decline';
-
-    notification.appendChild(dot);
-    notification.appendChild(text);
-    notification.appendChild(acceptButton);
-    notification.appendChild(declineButton);
-
-    container.appendChild(notification);
-  }
-      // Adjust container size and position
-      var containerHeight = notification.length * 30 + 20; // Calculate height based on notification count
-      container.style.height = containerHeight + 'px';
-      container.style.width = 300 + 'px'
-      container.style.display = 'block';
-      container.style.top = button.offsetHeight + 10 + 'px';
-    }
-
-  </script>
+  <script src="/templates/js/header.js"></script>
   <style>
     .notification-wrapper {
       position: relative;

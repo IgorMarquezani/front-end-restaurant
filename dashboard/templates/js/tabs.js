@@ -216,10 +216,7 @@ function removeItem2(label, span, br, link1) {
   label.setAttribute('hidden', '')
   span.setAttribute('hidden', '');
   list.removeChild(br);
-  var link = document.createElement('a');
-  link.setAttribute('value', 'deleting');
-  link.setAttribute('id', 'operation');
-  span.appendChild(link)
+  link1.setAttribute('value', 'deleting');
   itemCount--;
 
 }
@@ -256,14 +253,12 @@ function removeItem4(label, span, br, link1) {
     var link = document.createElement('a');
     link.setAttribute('value', 'deleting');
     link.setAttribute('id', 'operation');
-    span.appendChild(link)
   }
 
   var list = document.getElementById("myList2")
   const labels = list.querySelector("label");
   const spans = list.querySelector("span");
   const brs = list.querySelector("br");
-
   list.removeChild(labels)
   list.removeChild(spans)
   list.removeChild(brs)
