@@ -45,9 +45,9 @@ function removeLabels() {
     divMb3.removeChild(divMb3.firstChild);
   }
 }
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function() {
+  $(window).on('hidden.bs.modal', function () {
     $('#code').modal('hide');
     removeLabels();
   });
@@ -82,7 +82,7 @@ function addItem() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function() { increaseCounter(span); };
+  increaseButton.onclick = function () { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -90,13 +90,13 @@ function addItem() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function() { decreaseCounter(span); };
+  decreaseButton.onclick = function () { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem(label, span, br); };
+  removeButton.onclick = function () { removeItem(label, span, br); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -143,7 +143,7 @@ function addItem2() {
   increaseButton.innerText = "+";
   increaseButton.style.marginRight = "10px";
   increaseButton.style.marginLeft = "10px";
-  increaseButton.onclick = function() { increaseCounter(span); };
+  increaseButton.onclick = function () { increaseCounter(span); };
 
   // Cria um botão "diminuir" para o contador
   var decreaseButton = document.createElement("button");
@@ -151,13 +151,13 @@ function addItem2() {
   decreaseButton.innerText = "-";
   decreaseButton.style.marginRight = "10px";
   decreaseButton.style.marginLeft = "10px";
-  decreaseButton.onclick = function() { decreaseCounter(span); };
+  decreaseButton.onclick = function () { decreaseCounter(span); };
 
   // Cria um botão "remover" para o item
   var removeButton = document.createElement("button");
   removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
   removeButton.innerText = "Remover";
-  removeButton.onclick = function() { removeItem4(label, span, br, link); };
+  removeButton.onclick = function () { removeItem4(label, span, br, link); };
 
   // Cria um contador para o item
   var counter = document.createElement("span");
@@ -283,6 +283,19 @@ function makeTabRequest() {
     const product_name = label.textContent;
     const quantity = parseInt(spans[index].textContent);
     // sum += quanity;
+    if(quantity === 0){
+      Swal.fire({
+        title: 'Error!',
+        text: 'Nenhum item pode ser menor que um',
+        icon: 'error',
+        confirmButtonText: 'OK!'
+
+    }).then((result) => {
+        if (result.isConfirmed) {
+            return
+        }
+    })
+    }
     const request = { product_name: product_name, product_list: parseInt(product_list), quantity: parseInt(quantity) };
     requests.push(request);
   });
@@ -348,7 +361,7 @@ function showProductInfo() {
     increaseButton.innerText = "+";
     increaseButton.style.marginRight = "10px";
     increaseButton.style.marginLeft = "10px";
-    increaseButton.onclick = function() {
+    increaseButton.onclick = function () {
       increaseCounter2(span);
 
     };
@@ -358,7 +371,7 @@ function showProductInfo() {
     decreaseButton.innerText = "-";
     decreaseButton.style.marginRight = "10px";
     decreaseButton.style.marginLeft = "10px";
-    decreaseButton.onclick = function() {
+    decreaseButton.onclick = function () {
       decreaseCounter2(span);
     };
 
@@ -366,7 +379,7 @@ function showProductInfo() {
     var removeButton = document.createElement("button");
     removeButton.className = "btn waves-effect waves-light btn-light-secondary text-secondary";
     removeButton.innerText = "Remover";
-    removeButton.onclick = function() {
+    removeButton.onclick = function () {
       removeItem2(label, span, br, link);
     };
 
@@ -419,9 +432,9 @@ function showProductInfo() {
     console.log(link);
   });
 }
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
   // Check if the target of the click event is outside the modal and if the "#al-info-alert" modal is open
-  $(window).on('hidden.bs.modal', function() {
+  $(window).on('hidden.bs.modal', function () {
     removeItem3();
   });
 });
@@ -492,6 +505,21 @@ function deleteTab() {
   const data = JSON.parse(value);
   const productNumber = data.number;
 
+  Swal.fire({
+      title: '<strong>ATENÇÃO</strong>',
+      icon: 'info',
+      html: `Foi selecionada a comanda de numero (${data.number}) <br> <b>Deseja continuar?</b>`,
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Remover!',
+      confirmButtonAriaLabel: 'Thumbs up, great!',
+      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Não remover',
+      cancelButtonAriaLabel: 'Thumbs down'
+  }).then((result) => {
+      if (result.isConfirmed) {
+
+
   console.log(productNumber),
     fetch(`http://localhost:3300/api/tab/delete/${productNumber}`, {
       method: 'DELETE',
@@ -508,6 +536,48 @@ function deleteTab() {
           $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Comanda deletada com sucesso").fadeIn();
           setTimeout(() => {
             $("#box_msg2").removeClass('alert-danger').addClass('alert-success').fadeOut();
+          }, 1500);
+
+        } else {
+          console.error('Erro ao excluir');
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao excluir:', error);
+      });
+    }
+  })
+}
+
+function payTab() {
+  const tabDiv = event.currentTarget.closest('div[name="tab"]');
+  const a = tabDiv.querySelector('a#tabValue');
+  const value = a.getAttribute('value');
+  const data = JSON.parse(value);
+  const productNumber = data.number;
+  var hoje = new Date();
+  var ano = hoje.getFullYear();
+  var mes = String(hoje.getMonth() + 1).padStart(2, '0');
+  var dia = String(hoje.getDate()).padStart(2, '0');
+  var dataFormatada = ano + '-' + mes + '-' + dia;
+  const payload = { number: data.number, date: dataFormatada };
+  console.log(payload),
+    fetch(`http://localhost:3300/api/tab/pay`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        "Accept": "*/*",
+        "Content-Type": 'application/json',
+      },
+      credentials: 'include',
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log(response);
+          scrollTo(0, 0);
+          $("#box_msg2").removeClass('alert-danger').addClass('alert-success').html("Dado baixa na comanda com sucesso").fadeIn();
+          setTimeout(() => {
+            $("#box_msg2").fadeOut();
           }, 1500);
 
         } else {
@@ -536,7 +606,7 @@ function renderTabFromWebsocket(tab) {
     tabNumber = parseInt(tabNumber)
     var anchorId = 'tabnumber';
     var anchorValue = tabNumber + 'T';
-  
+
     var anchor = document.querySelector('a#' + anchorId + '[value="' + anchorValue + '"]');
     if (anchor) {
       var div = anchor.closest('div[name="tab"]');
@@ -554,7 +624,7 @@ function renderTabFromWebsocket(tab) {
   var newTabDiv = document.createElement("div");
   newTabDiv.setAttribute("name", "tab");
   newTabDiv.setAttribute("class", "col-lg-3 col-md-12");
-  
+
   newTabDiv.innerHTML = `
      <a id="tabnumber" value="${tab.number}T"></a>
      <a id="tabValue" type="hidden" value='${msg}'></a>
